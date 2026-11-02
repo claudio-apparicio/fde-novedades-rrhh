@@ -278,7 +278,7 @@ def main() -> int:
     story.append(P("5. Estructura del repositorio y etiqueta pe2", h2))
     izq, der = captura_repo()
     mitad = W / 2 - 3
-    rep = Table([[terminal(izq, 14, 64, mitad), terminal(der, 26, 64, mitad)]], colWidths=[W / 2, W / 2])
+    rep = Table([[terminal(izq, 14, 64, mitad), terminal(der, 34, 64, mitad)]], colWidths=[W / 2, W / 2])
     rep.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
                              ("RIGHTPADDING", (0, 0), (-1, -1), 3)]))
     story.append(rep)
