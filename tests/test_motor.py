@@ -73,3 +73,27 @@ def test_costo_con_precios_publicados():
     # Claude Haiku 5.5: US$ 0,10 entrada / 0,50 salida por millón de tokens
     assert calcular_costo("claude-haiku-5-5", 1_000_000, 0) == pytest.approx(0.10)
     assert calcular_costo("gpt-5-mini", 1000, 500) == pytest.approx(0.00125)
+
+
+# --- Conteo de tokens de razonamiento (proveedores compatibles con OpenAI) ---------------
+class _Uso:
+    def __init__(self, prompt, completion, total, razonamiento):
+        self.prompt_tokens, self.completion_tokens, self.total_tokens = prompt, completion, total
+        self.completion_tokens_details = type("D", (), {"reasoning_tokens": razonamiento})()
+
+
+def _respuesta(uso):
+    msg = type("M", (), {"content": VALIDA})()
+    return type("R", (), {"usage": uso, "choices": [type("C", (), {"message": msg})()]})()
+
+
+@pytest.mark.parametrize("uso,esperado", [
+    (_Uso(1000, 600, 1600, 450), 600),   # OpenAI: completion ya incluye el razonamiento
+    (_Uso(1000, 140, 1740, 600), 740),   # xAI: el razonamiento viene aparte
+    (_Uso(1000, 140, 1140, 0), 140),     # sin razonamiento
+])
+def test_tokens_de_razonamiento(uso, esperado, monkeypatch):
+    from src.proveedores import ProveedorOpenAI
+    p = ProveedorOpenAI("gpt-5-mini", "clave", 5, 100, None)
+    monkeypatch.setattr(p._cliente.chat.completions, "create", lambda **kw: _respuesta(uso))
+    assert p.generar("s", [{"role": "user", "content": "x"}]).tokens_salida == esperado

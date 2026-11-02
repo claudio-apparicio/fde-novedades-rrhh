@@ -31,8 +31,9 @@ REGLAS
    licencia_enfermedad o ausencia_justificada y el supervisor no haya adjuntado el certificado
    ("tiene_adjunto": false). "fecha_hasta" es opcional y nunca va en faltantes.
 9. "respuesta_supervisor": de 20 a 600 caracteres, en castellano rioplatense, cordial y breve.
-   Si falta algo, pedí exactamente lo que falta. Si está completa, confirmá lo que entendiste
-   y aclará que queda pendiente de aprobación de RRHH. Si es fuera de tema, decí amablemente
+   Si falta algo, pedí exactamente lo que falta y NO digas que queda pendiente de aprobación
+   (todavía no se puede cargar). Si está completa, confirmá lo que entendiste y aclará que
+   queda pendiente de aprobación de RRHH. Si es fuera de tema, decí amablemente
    que solo podés ayudar con novedades de personal.
 10. "confianza": número de 0 a 1 que indica qué tan seguro estás de tu interpretación.
     Bajala si el mensaje es ambiguo o tuviste que interpretar mucho.

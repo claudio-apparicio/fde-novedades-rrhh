@@ -127,8 +127,9 @@ class Motor:
             m.tokens_entrada += r.tokens_entrada
             m.tokens_salida += r.tokens_salida
             m.costo_usd = calcular_costo(m.modelo, m.tokens_entrada, m.tokens_salida)
-            log.info("[%s] llamada %d · %s/%s · %d + %d tokens · %d ms", qid, m.intentos,
-                     self.proveedor.nombre, m.modelo, r.tokens_entrada, r.tokens_salida, ms)
+            razon = f" (razonamiento: {r.tokens_razonamiento})" if r.tokens_razonamiento else ""
+            log.info("[%s] llamada %d · %s/%s · %d + %d tokens%s · %d ms", qid, m.intentos,
+                     self.proveedor.nombre, m.modelo, r.tokens_entrada, r.tokens_salida, razon, ms)
             return r
 
     def procesar(self, entrada: Entrada) -> Union[ResultadoMotor, ErrorMotor]:
@@ -180,7 +181,7 @@ class Motor:
 def configurar_logs(nivel: int = logging.INFO) -> None:
     logging.basicConfig(level=nivel, format="%(asctime)s %(levelname)-7s %(message)s",
                         datefmt="%H:%M:%S", stream=sys.stderr)
-    for ruidoso in ("httpx", "anthropic", "openai"):
+    for ruidoso in ("httpx", "httpx2", "httpcore", "anthropic", "openai"):
         logging.getLogger(ruidoso).setLevel(logging.WARNING)
 
 

@@ -302,6 +302,11 @@ def main() -> int:
                       "es de centavos, así que el precio no es la restricción: si la detección no llega a la meta, "
                       "primero se ajusta el prompt y después se prueba Sonnet 5.5 (20 veces más caro). El motor "
                       "también corre con gpt-5-mini cambiando PROVEEDOR_LLM.")
+    seg = prom["latencia_ms"] / 1000
+    modelo_txt += (f" La latencia medida fue de {seg:.1f} s promedio por consulta: alcanza para un mensaje que "
+                   "hoy espera 22 h en ser cargado, pero en un chat se nota. "
+                   + ("Si el modelo razona antes de responder, esos tokens se cobran como salida y el motor los "
+                      "suma al costo." if med["proveedor"] in ("openai", "xai") else ""))
     decisiones = [
         modelo_txt,
         "<b>Prompt de sistema</b> (src/prompts/sistema.txt, separado del código y armado con string.Template): "

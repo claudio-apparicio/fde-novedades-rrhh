@@ -16,7 +16,8 @@ from .contrato import TipoError
 class RespuestaLLM:
     texto: str
     tokens_entrada: int
-    tokens_salida: int
+    tokens_salida: int          # incluye los de razonamiento, que se cobran como salida
+    tokens_razonamiento: int = 0
 
 
 class ErrorProveedor(Exception):
@@ -51,6 +52,9 @@ def _traducir_error(sdk, exc: Exception) -> ErrorProveedor:
         return ErrorProveedor(TipoError.SIN_CONEXION, f"No se pudo conectar con la API: {d}", True)
     if isinstance(exc, sdk.InternalServerError):
         return ErrorProveedor(TipoError.API, f"Error del servidor del proveedor: {d}", True)
+    if isinstance(exc, sdk.APIStatusError) and exc.status_code == 400 and "api key" in d.lower():
+        # xAI responde 400 (no 401) cuando la clave es incorrecta
+        return ErrorProveedor(TipoError.AUTENTICACION, f"Clave de API inválida: {d}")
     if isinstance(exc, sdk.APIStatusError):
         return ErrorProveedor(TipoError.API, f"La API rechazó el pedido ({exc.status_code}): {d}")
     return ErrorProveedor(TipoError.API, f"Error inesperado: {exc!r}")
@@ -112,9 +116,17 @@ class ProveedorOpenAI(Proveedor):
                 messages=[{"role": "system", "content": sistema}, *mensajes], **extra)
         except self._sdk.APIError as exc:
             raise _traducir_error(self._sdk, exc) from exc
-        # completion_tokens incluye los tokens de razonamiento, que también se cobran
-        return RespuestaLLM(r.choices[0].message.content or "", r.usage.prompt_tokens,
-                            r.usage.completion_tokens)
+        u = r.usage
+        salida = u.completion_tokens or 0
+        detalle = getattr(u, "completion_tokens_details", None)
+        razonamiento = (getattr(detalle, "reasoning_tokens", 0) or 0) if detalle else 0
+        # OpenAI incluye el razonamiento dentro de completion_tokens. Otros proveedores compatibles
+        # (como xAI) lo informan aparte: se nota porque el total supera entrada + salida o porque
+        # el razonamiento es mayor que la salida. En ese caso se suma, porque también se cobra.
+        if razonamiento and ((u.total_tokens or 0) >= u.prompt_tokens + salida + razonamiento
+                             or razonamiento > salida):
+            salida += razonamiento
+        return RespuestaLLM(r.choices[0].message.content or "", u.prompt_tokens, salida, razonamiento)
 
 
 class ProveedorSimulado(Proveedor):
