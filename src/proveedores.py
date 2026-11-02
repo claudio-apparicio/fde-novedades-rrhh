@@ -29,20 +29,30 @@ class ErrorProveedor(Exception):
         self.reintentable = reintentable
 
 
+def _detalle(exc: Exception) -> str:
+    """Texto del error. xAI manda el motivo como texto plano y el SDK de OpenAI no lo incluye en str(exc)."""
+    texto = str(exc)
+    cuerpo = getattr(exc, "body", None)
+    if isinstance(cuerpo, str) and cuerpo not in texto:
+        texto += f" - {cuerpo}"
+    return texto
+
+
 def _traducir_error(sdk, exc: Exception) -> ErrorProveedor:
     """Mapea las excepciones de los SDK (Anthropic y OpenAI usan los mismos nombres)."""
+    d = _detalle(exc)
     if isinstance(exc, sdk.AuthenticationError) or isinstance(exc, sdk.PermissionDeniedError):
-        return ErrorProveedor(TipoError.AUTENTICACION, f"Clave de API inválida o sin permisos: {exc}")
+        return ErrorProveedor(TipoError.AUTENTICACION, f"Clave de API inválida o sin permisos: {d}")
     if isinstance(exc, sdk.RateLimitError):
-        return ErrorProveedor(TipoError.LIMITE_DE_USO, f"Límite de uso alcanzado (429): {exc}", True)
+        return ErrorProveedor(TipoError.LIMITE_DE_USO, f"Límite de uso alcanzado (429): {d}", True)
     if isinstance(exc, sdk.APITimeoutError):
-        return ErrorProveedor(TipoError.TIEMPO_AGOTADO, f"La API no respondió a tiempo: {exc}", True)
+        return ErrorProveedor(TipoError.TIEMPO_AGOTADO, f"La API no respondió a tiempo: {d}", True)
     if isinstance(exc, sdk.APIConnectionError):
-        return ErrorProveedor(TipoError.SIN_CONEXION, f"No se pudo conectar con la API: {exc}", True)
+        return ErrorProveedor(TipoError.SIN_CONEXION, f"No se pudo conectar con la API: {d}", True)
     if isinstance(exc, sdk.InternalServerError):
-        return ErrorProveedor(TipoError.API, f"Error del servidor del proveedor: {exc}", True)
+        return ErrorProveedor(TipoError.API, f"Error del servidor del proveedor: {d}", True)
     if isinstance(exc, sdk.APIStatusError):
-        return ErrorProveedor(TipoError.API, f"La API rechazó el pedido ({exc.status_code}): {exc}")
+        return ErrorProveedor(TipoError.API, f"La API rechazó el pedido ({exc.status_code}): {d}")
     return ErrorProveedor(TipoError.API, f"Error inesperado: {exc!r}")
 
 

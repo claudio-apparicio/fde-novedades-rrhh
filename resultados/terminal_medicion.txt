@@ -1,0 +1,113 @@
+$ python scripts/medir.py      # 2026-11-02 18:52
+Proveedor: xai · modelo: grok-4.3
+
+── Consulta 1: Completa, horas extras sobre el umbral ──────────────────────────────
+18:52:55 INFO    [Q-fe9b2117] consulta de SUP-003 (montaje, whatsapp): Diego, te paso: el legajo 1091 hizo hoy 10 hs extras al 100% por la en
+18:53:04 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+18:53:04 INFO    [Q-fe9b2117] llamada 1 · xai/grok-4.3 · 1170 + 138 tokens · 8460 ms
+18:53:04 INFO    [Q-fe9b2117] OK · categoria=novedad · estado=pendiente_jefe · 1308 tokens · US$ 0.001808 · 8460 ms
+{
+  "estado": "pendiente_jefe",
+  "categoria": "novedad",
+  "tipo": "horas_extras_100",
+  "legajo": "1091",
+  "cantidad": 10.0,
+  "unidad": "HS",
+  "campos_faltantes": [],
+  "confianza": 0.95,
+  "respuesta_supervisor": "Entendido, legajo 1091 con 10 hs extras al 100% el 2026-09-12. Queda pendiente de aprobación de RRHH."
+}
+
+── Consulta 2: Incompleta: nombre en lugar de legajo ──────────────────────────────
+18:53:04 INFO    [Q-a7c27add] consulta de SUP-004 (deposito, mail): Hola, el lunes 29 Juancito se toma licencia particular con goce por un
+18:53:17 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+18:53:17 INFO    [Q-a7c27add] llamada 1 · xai/grok-4.3 · 1166 + 139 tokens · 13373 ms
+18:53:17 INFO    [Q-a7c27add] OK · categoria=novedad · estado=requiere_dato · 1305 tokens · US$ 0.001805 · 13373 ms
+{
+  "estado": "requiere_dato",
+  "categoria": "novedad",
+  "tipo": "licencia_particular",
+  "legajo": null,
+  "cantidad": 1.0,
+  "unidad": "dias",
+  "campos_faltantes": [
+    "legajo"
+  ],
+  "confianza": 0.85,
+  "respuesta_supervisor": "Entendí que Juancito tomará licencia particular el 29/09/2026 por un día. ¿Podés pasarme el legajo para cargar la novedad?"
+}
+
+── Consulta 3: Incompleta: enfermedad sin certificado ──────────────────────────────
+18:53:17 INFO    [Q-54e676e8] consulta de SUP-001 (torneria, whatsapp): El 1083 faltó del 9 al 15 por enfermedad, el certificado te lo mando c
+18:53:35 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+18:53:35 INFO    [Q-54e676e8] llamada 1 · xai/grok-4.3 · 1165 + 167 tokens · 18402 ms
+18:53:35 INFO    [Q-54e676e8] OK · categoria=novedad · estado=requiere_dato · 1332 tokens · US$ 0.001874 · 18402 ms
+{
+  "estado": "requiere_dato",
+  "categoria": "novedad",
+  "tipo": "licencia_enfermedad",
+  "legajo": "1083",
+  "cantidad": 7.0,
+  "unidad": "dias",
+  "campos_faltantes": [
+    "adjunto"
+  ],
+  "confianza": 0.9,
+  "respuesta_supervisor": "Entendí que el legajo 1083 tuvo licencia por enfermedad del 9 al 15 de septiembre (7 días). Como no adjuntaste el certificado todavía, te pido que lo mandes cuando lo tengas. Queda pendiente de aprobación de RRHH."
+}
+
+── Consulta 4: Confusa ──────────────────────────────
+18:53:35 INFO    [Q-d709ea5d] consulta de SUP-005 (mantenimiento, whatsapp): che lo de los chicos de la semana pasada cargalo como la otra vez, fue
+18:53:54 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+18:53:54 INFO    [Q-d709ea5d] llamada 1 · xai/grok-4.3 · 1174 + 139 tokens · 18401 ms
+18:53:54 INFO    [Q-d709ea5d] OK · categoria=novedad · estado=requiere_dato · 1313 tokens · US$ 0.001815 · 18401 ms
+{
+  "estado": "requiere_dato",
+  "categoria": "novedad",
+  "tipo": null,
+  "legajo": null,
+  "cantidad": null,
+  "unidad": null,
+  "campos_faltantes": [
+    "legajo",
+    "tipo",
+    "fecha_desde",
+    "cantidad",
+    "unidad"
+  ],
+  "confianza": 0.3,
+  "respuesta_supervisor": "Che, para cargar las horas de la semana pasada necesito los legajos de los chicos, las fechas exactas y las horas precisas. ¿Me pasás los detalles?"
+}
+
+── Consulta 5: Fuera de tema ──────────────────────────────
+18:53:54 INFO    [Q-2fc530e5] consulta de SUP-002 (soldadura, whatsapp): Che Diego, ¿sabés si el comedor abre el feriado y a qué hora juega Rac
+18:54:15 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 200 OK"
+18:54:15 INFO    [Q-2fc530e5] llamada 1 · xai/grok-4.3 · 1163 + 126 tokens · 20976 ms
+18:54:15 INFO    [Q-2fc530e5] OK · categoria=fuera_de_tema · estado=fuera_de_alcance · 1289 tokens · US$ 0.001769 · 20976 ms
+{
+  "estado": "fuera_de_alcance",
+  "categoria": "fuera_de_tema",
+  "tipo": null,
+  "legajo": null,
+  "cantidad": null,
+  "unidad": null,
+  "campos_faltantes": [],
+  "confianza": 1.0,
+  "respuesta_supervisor": "Disculpá, solo puedo ayudarte con novedades de personal como ausencias, licencias o extras. Para lo del comedor o el partido, consultá en otra área."
+}
+
+══════════════════════════════════════════════════════════════════════════════
+#     ¿Validó?        Tokens in/out   Costo USD    Latencia ms  Estado
+1     Sí              1170 / 138      0.001808     8460         pendiente_jefe
+2     Sí              1166 / 139      0.001805     13373        requiere_dato
+3     Sí              1165 / 167      0.001874     18402        requiere_dato
+4     Sí              1174 / 139      0.001815     18401        requiere_dato
+5     Sí              1163 / 126      0.001769     20976        fuera_de_alcance
+Prom. 100%            1168 / 142      0.001814     15922        
+══════════════════════════════════════════════════════════════════════════════
+KPI técnico · detección de faltantes: 3/3 = 100% (meta ≥ 95%) → CUMPLE
+            falsas alarmas: 0/2 = 0% (meta ≤ 10%) → CUMPLE
+Categoría correcta: 5/5 · validación al primer intento: 100%
+Costo proyectado: US$ 0.0726 por mes (40 novedades, volumen de sept. 2026)
+
+Archivos: resultados/medicion.csv, resultados/medicion.json, resultados/terminal_medicion.txt

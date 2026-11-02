@@ -5,7 +5,8 @@ resultados/terminal_errores.txt:
   1. Salida inválida: el proveedor simulado devuelve dos veces un JSON que no cumple Salida
      → se registra qué campo falló, se reintenta una vez y se devuelve un error estructurado.
   2. Error de API real: se llama al proveedor configurado en .env con una clave inválida
-     → el motor captura el error 401 y lo devuelve estructurado (sin reintentar).
+     → el motor captura el error (401 en Anthropic y OpenAI, 400 en xAI) y lo devuelve
+       estructurado (sin reintentar).
   3. Sin conexión (simulado): falla dos veces → un reintento y error estructurado.
 
 Uso:  python scripts/demo_errores.py

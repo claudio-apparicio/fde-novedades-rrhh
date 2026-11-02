@@ -1,0 +1,275 @@
+{
+  "proveedor": "xai",
+  "modelo": "grok-4.3",
+  "fecha": "2026-11-02T18:54",
+  "promedios": {
+    "tokens_entrada": 1167.6,
+    "tokens_salida": 141.8,
+    "costo_usd": 0.001814,
+    "latencia_ms": 15922.4,
+    "validacion": 1.0,
+    "validacion_primer_intento": 1.0
+  },
+  "kpi": {
+    "deteccion_faltantes": 1.0,
+    "detectadas": 3,
+    "incompletas": 3,
+    "falsas_alarmas": 0.0,
+    "falsas": 0,
+    "completas_o_fuera": 2,
+    "categoria_correcta": 1.0,
+    "meta_deteccion": 0.95,
+    "meta_falsas_alarmas": 0.1
+  },
+  "detalle": [
+    {
+      "consulta": {
+        "id": 1,
+        "descripcion": "Completa, horas extras sobre el umbral",
+        "entrada": {
+          "supervisor_id": "SUP-003",
+          "sector": "montaje",
+          "canal": "whatsapp",
+          "recibida_en": "2026-09-12T16:00",
+          "mensaje": "Diego, te paso: el legajo 1091 hizo hoy 10 hs extras al 100% por la entrega de la línea 2."
+        },
+        "esperado": {
+          "categoria": "novedad",
+          "faltantes": [],
+          "estado": "pendiente_jefe"
+        }
+      },
+      "resultado": {
+        "ok": true,
+        "id_consulta": "Q-fe9b2117",
+        "salida": {
+          "categoria": "novedad",
+          "tipo": "horas_extras_100",
+          "legajo": "1091",
+          "fecha_desde": "2026-09-12",
+          "fecha_hasta": null,
+          "cantidad": "10",
+          "unidad": "HS",
+          "tiene_adjunto": false,
+          "campos_faltantes": [],
+          "respuesta_supervisor": "Entendido, legajo 1091 con 10 hs extras al 100% el 2026-09-12. Queda pendiente de aprobación de RRHH.",
+          "confianza": 0.95
+        },
+        "estado": "pendiente_jefe",
+        "aprobador_requerido": "jefe_rrhh",
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 1170,
+          "tokens_salida": 138,
+          "costo_usd": 0.0018075,
+          "latencia_ms": 8460,
+          "intentos": 1
+        }
+      }
+    },
+    {
+      "consulta": {
+        "id": 2,
+        "descripcion": "Incompleta: nombre en lugar de legajo",
+        "entrada": {
+          "supervisor_id": "SUP-004",
+          "sector": "deposito",
+          "canal": "mail",
+          "recibida_en": "2026-09-26T11:00",
+          "mensaje": "Hola, el lunes 29 Juancito se toma licencia particular con goce por un trámite, es un solo día."
+        },
+        "esperado": {
+          "categoria": "novedad",
+          "faltantes": [
+            "legajo"
+          ],
+          "estado": "requiere_dato"
+        }
+      },
+      "resultado": {
+        "ok": true,
+        "id_consulta": "Q-a7c27add",
+        "salida": {
+          "categoria": "novedad",
+          "tipo": "licencia_particular",
+          "legajo": null,
+          "fecha_desde": "2026-09-29",
+          "fecha_hasta": null,
+          "cantidad": "1",
+          "unidad": "dias",
+          "tiene_adjunto": false,
+          "campos_faltantes": [
+            "legajo"
+          ],
+          "respuesta_supervisor": "Entendí que Juancito tomará licencia particular el 29/09/2026 por un día. ¿Podés pasarme el legajo para cargar la novedad?",
+          "confianza": 0.85
+        },
+        "estado": "requiere_dato",
+        "aprobador_requerido": null,
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 1166,
+          "tokens_salida": 139,
+          "costo_usd": 0.001805,
+          "latencia_ms": 13373,
+          "intentos": 1
+        }
+      }
+    },
+    {
+      "consulta": {
+        "id": 3,
+        "descripcion": "Incompleta: enfermedad sin certificado",
+        "entrada": {
+          "supervisor_id": "SUP-001",
+          "sector": "torneria",
+          "canal": "whatsapp",
+          "recibida_en": "2026-09-15T08:30",
+          "mensaje": "El 1083 faltó del 9 al 15 por enfermedad, el certificado te lo mando cuando lo traiga."
+        },
+        "esperado": {
+          "categoria": "novedad",
+          "faltantes": [
+            "adjunto"
+          ],
+          "estado": "requiere_dato"
+        }
+      },
+      "resultado": {
+        "ok": true,
+        "id_consulta": "Q-54e676e8",
+        "salida": {
+          "categoria": "novedad",
+          "tipo": "licencia_enfermedad",
+          "legajo": "1083",
+          "fecha_desde": "2026-09-09",
+          "fecha_hasta": "2026-09-15",
+          "cantidad": "7",
+          "unidad": "dias",
+          "tiene_adjunto": false,
+          "campos_faltantes": [
+            "adjunto"
+          ],
+          "respuesta_supervisor": "Entendí que el legajo 1083 tuvo licencia por enfermedad del 9 al 15 de septiembre (7 días). Como no adjuntaste el certificado todavía, te pido que lo mandes cuando lo tengas. Queda pendiente de aprobación de RRHH.",
+          "confianza": 0.9
+        },
+        "estado": "requiere_dato",
+        "aprobador_requerido": null,
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 1165,
+          "tokens_salida": 167,
+          "costo_usd": 0.00187375,
+          "latencia_ms": 18402,
+          "intentos": 1
+        }
+      }
+    },
+    {
+      "consulta": {
+        "id": 4,
+        "descripcion": "Confusa",
+        "entrada": {
+          "supervisor_id": "SUP-005",
+          "sector": "mantenimiento",
+          "canal": "whatsapp",
+          "recibida_en": "2026-09-28T19:00",
+          "mensaje": "che lo de los chicos de la semana pasada cargalo como la otra vez, fueron como 3 o 4 hs cada uno me parece, despues te paso bien"
+        },
+        "esperado": {
+          "categoria": "novedad",
+          "faltantes": [
+            "legajo",
+            "tipo",
+            "fecha_desde",
+            "cantidad"
+          ],
+          "estado": "requiere_dato"
+        }
+      },
+      "resultado": {
+        "ok": true,
+        "id_consulta": "Q-d709ea5d",
+        "salida": {
+          "categoria": "novedad",
+          "tipo": null,
+          "legajo": null,
+          "fecha_desde": null,
+          "fecha_hasta": null,
+          "cantidad": null,
+          "unidad": null,
+          "tiene_adjunto": false,
+          "campos_faltantes": [
+            "legajo",
+            "tipo",
+            "fecha_desde",
+            "cantidad",
+            "unidad"
+          ],
+          "respuesta_supervisor": "Che, para cargar las horas de la semana pasada necesito los legajos de los chicos, las fechas exactas y las horas precisas. ¿Me pasás los detalles?",
+          "confianza": 0.3
+        },
+        "estado": "requiere_dato",
+        "aprobador_requerido": null,
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 1174,
+          "tokens_salida": 139,
+          "costo_usd": 0.001815,
+          "latencia_ms": 18401,
+          "intentos": 1
+        }
+      }
+    },
+    {
+      "consulta": {
+        "id": 5,
+        "descripcion": "Fuera de tema",
+        "entrada": {
+          "supervisor_id": "SUP-002",
+          "sector": "soldadura",
+          "canal": "whatsapp",
+          "recibida_en": "2026-09-20T14:00",
+          "mensaje": "Che Diego, ¿sabés si el comedor abre el feriado y a qué hora juega Racing el domingo?"
+        },
+        "esperado": {
+          "categoria": "fuera_de_tema",
+          "faltantes": [],
+          "estado": "fuera_de_alcance"
+        }
+      },
+      "resultado": {
+        "ok": true,
+        "id_consulta": "Q-2fc530e5",
+        "salida": {
+          "categoria": "fuera_de_tema",
+          "tipo": null,
+          "legajo": null,
+          "fecha_desde": null,
+          "fecha_hasta": null,
+          "cantidad": null,
+          "unidad": null,
+          "tiene_adjunto": false,
+          "campos_faltantes": [],
+          "respuesta_supervisor": "Disculpá, solo puedo ayudarte con novedades de personal como ausencias, licencias o extras. Para lo del comedor o el partido, consultá en otra área.",
+          "confianza": 1.0
+        },
+        "estado": "fuera_de_alcance",
+        "aprobador_requerido": null,
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 1163,
+          "tokens_salida": 126,
+          "costo_usd": 0.00176875,
+          "latencia_ms": 20976,
+          "intentos": 1
+        }
+      }
+    }
+  ]
+}

@@ -81,7 +81,7 @@ def tabla(filas, anchos, extra=None):
     return tb
 
 
-def terminal(lineas: list[str], max_lineas: int, ancho_chars: int = 138, ancho=W):
+def terminal(lineas: list[str], max_lineas: int, ancho_chars: int = 137, ancho=W):
     salida = []
     for ln in lineas:
         ln = t(ln.rstrip("\n"))
@@ -131,7 +131,8 @@ def comprimir_json(lineas: list[str]) -> list[str]:
 
 def git(*args) -> str:
     try:
-        return subprocess.run(["git", *args], cwd=RAIZ, capture_output=True, text=True, check=True).stdout
+        return subprocess.run(["git", *args], cwd=RAIZ, capture_output=True, text=True, encoding="utf-8",
+                              check=True).stdout
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         return f"(git {' '.join(args)} falló: {e})\n"
 
