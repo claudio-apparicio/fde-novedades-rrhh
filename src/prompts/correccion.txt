@@ -1,0 +1,5 @@
+Tu respuesta anterior no pasó la validación. Estos son los errores:
+$errores
+
+Corregí SOLO lo que indican los errores y devolvé de nuevo el objeto JSON completo,
+sin texto antes ni después.

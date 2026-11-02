@@ -1,0 +1,9 @@
+Fecha y hora de recepción: $recibida_en ($dia_semana)
+Supervisor: $supervisor_id
+Sector: $sector
+Canal: $canal
+
+Mensaje del supervisor:
+"""
+$mensaje
+"""
