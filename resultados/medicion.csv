@@ -1,7 +1,7 @@
 #,Consulta,Tipo de caso,¿Validó?,Tokens (entrada / salida),Costo USD,Latencia ms,Estado
-1,"Diego, te paso: el legajo 1091 hizo hoy 10 hs extras al 100% por la entrega de la línea 2.","Completa, horas extras sobre el umbral",Sí,1170 / 138,0.001808,8460,pendiente_jefe
-2,"Hola, el lunes 29 Juancito se toma licencia particular con goce por un trámite, es un solo día.",Incompleta: nombre en lugar de legajo,Sí,1166 / 139,0.001805,13373,requiere_dato
-3,"El 1083 faltó del 9 al 15 por enfermedad, el certificado te lo mando cuando lo traiga.",Incompleta: enfermedad sin certificado,Sí,1165 / 167,0.001874,18402,requiere_dato
-4,"che lo de los chicos de la semana pasada cargalo como la otra vez, fueron como 3 o 4 hs cada uno me parece, despues te paso bien",Confusa,Sí,1174 / 139,0.001815,18401,requiere_dato
-5,"Che Diego, ¿sabés si el comedor abre el feriado y a qué hora juega Racing el domingo?",Fuera de tema,Sí,1163 / 126,0.001769,20976,fuera_de_alcance
-Prom.,,,100%,1168 / 142,0.001814,15922,
+1,"Diego, te paso: el legajo 1091 hizo hoy 10 hs extras al 100% por la entrega de la línea 2.","Completa, horas extras sobre el umbral",Sí,1188 / 460,0.002635,6253,pendiente_jefe
+2,"Hola, el lunes 29 Juancito se toma licencia particular con goce por un trámite, es un solo día.",Incompleta: nombre en lugar de legajo,Sí,1184 / 546,0.002845,6719,requiere_dato
+3,"El 1083 faltó del 9 al 15 por enfermedad, el certificado te lo mando cuando lo traiga.",Incompleta: enfermedad sin certificado,Sí,1183 / 820,0.003529,9255,requiere_dato
+4,"che lo de los chicos de la semana pasada cargalo como la otra vez, fueron como 3 o 4 hs cada uno me parece, despues te paso bien",Confusa,Sí,1192 / 773,0.003423,11464,requiere_dato
+5,"Che Diego, ¿sabés si el comedor abre el feriado y a qué hora juega Racing el domingo?",Fuera de tema,Sí,1181 / 406,0.002491,4382,fuera_de_alcance
+Prom.,,,100%,1186 / 601,0.002985,7615,

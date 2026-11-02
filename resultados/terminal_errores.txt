@@ -1,20 +1,20 @@
-$ python scripts/demo_errores.py      # 2026-11-02 19:04
+$ python scripts/demo_errores.py      # 2026-11-02 19:17
 
 ── 1. Salida inválida dos veces (proveedor simulado) ─────────────────────
-19:04:19 INFO    [Q-ed728a84] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:04:19 INFO    [Q-ed728a84] llamada 1 · simulado/simulado · 841 + 86 tokens · 0 ms
-19:04:19 WARNING [Q-ed728a84] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
-19:04:19 WARNING [Q-ed728a84] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
-19:04:19 WARNING [Q-ed728a84] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
-19:04:19 INFO    [Q-ed728a84] reintento 1/1: se reenvían los errores al modelo
-19:04:19 INFO    [Q-ed728a84] llamada 2 · simulado/simulado · 1045 + 86 tokens · 0 ms
-19:04:19 WARNING [Q-ed728a84] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
-19:04:19 WARNING [Q-ed728a84] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
-19:04:19 WARNING [Q-ed728a84] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
-19:04:19 ERROR   [Q-ed728a84] la salida sigue inválida después del reintento: se devuelve error estructurado
+19:17:00 INFO    [Q-061150ec] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+19:17:00 INFO    [Q-061150ec] llamada 1 · simulado/simulado · 860 + 86 tokens · 0 ms
+19:17:00 WARNING [Q-061150ec] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
+19:17:00 WARNING [Q-061150ec] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
+19:17:00 WARNING [Q-061150ec] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
+19:17:00 INFO    [Q-061150ec] reintento 1/1: se reenvían los errores al modelo
+19:17:00 INFO    [Q-061150ec] llamada 2 · simulado/simulado · 1064 + 86 tokens · 0 ms
+19:17:00 WARNING [Q-061150ec] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
+19:17:00 WARNING [Q-061150ec] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
+19:17:00 WARNING [Q-061150ec] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
+19:17:00 ERROR   [Q-061150ec] la salida sigue inválida después del reintento: se devuelve error estructurado
 {
   "ok": false,
-  "id_consulta": "Q-ed728a84",
+  "id_consulta": "Q-061150ec",
   "tipo_error": "validacion",
   "mensaje": "La respuesta del modelo no cumple el contrato Salida después de 1 reintento. La novedad pasa a revisión manual.",
   "campos_fallidos": [
@@ -37,7 +37,7 @@ $ python scripts/demo_errores.py      # 2026-11-02 19:04
   "metricas": {
     "proveedor": "simulado",
     "modelo": "simulado",
-    "tokens_entrada": 1886,
+    "tokens_entrada": 1924,
     "tokens_salida": 172,
     "costo_usd": 0.0,
     "latencia_ms": 0,
@@ -46,14 +46,13 @@ $ python scripts/demo_errores.py      # 2026-11-02 19:04
 }
 
 ── 2. Error real de API: clave inválida (xai) ────────────────────────────
-19:04:20 INFO    [Q-dec24d3f] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:04:20 INFO    HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 400 Bad Request"
-19:04:20 ERROR   [Q-dec24d3f] error de API (error_api): La API rechazó el pedido (400): Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.
+19:17:01 INFO    [Q-9fa50070] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+19:17:01 ERROR   [Q-9fa50070] error de API (autenticacion): Clave de API inválida: Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.
 {
   "ok": false,
-  "id_consulta": "Q-dec24d3f",
-  "tipo_error": "error_api",
-  "mensaje": "La API rechazó el pedido (400): Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.",
+  "id_consulta": "Q-9fa50070",
+  "tipo_error": "autenticacion",
+  "mensaje": "Clave de API inválida: Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.",
   "campos_fallidos": [],
   "metricas": {
     "proveedor": "xai",
@@ -61,19 +60,19 @@ $ python scripts/demo_errores.py      # 2026-11-02 19:04
     "tokens_entrada": 0,
     "tokens_salida": 0,
     "costo_usd": 0.0,
-    "latencia_ms": 287,
+    "latencia_ms": 306,
     "intentos": 1
   }
 }
 
 ── 3. Sin conexión dos veces (proveedor simulado) ────────────────────────
-19:04:20 INFO    [Q-260c5482] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:04:20 ERROR   [Q-260c5482] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
-19:04:20 INFO    [Q-260c5482] reintento de API en 2 s
-19:04:22 ERROR   [Q-260c5482] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
+19:17:01 INFO    [Q-413a19d8] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+19:17:01 ERROR   [Q-413a19d8] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
+19:17:01 INFO    [Q-413a19d8] reintento de API en 2 s
+19:17:03 ERROR   [Q-413a19d8] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
 {
   "ok": false,
-  "id_consulta": "Q-260c5482",
+  "id_consulta": "Q-413a19d8",
   "tipo_error": "sin_conexion",
   "mensaje": "[SIMULADO] error de API: sin_conexion",
   "campos_fallidos": [],

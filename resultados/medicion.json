@@ -1,12 +1,12 @@
 {
   "proveedor": "xai",
   "modelo": "grok-4.3",
-  "fecha": "2026-11-02T18:54",
+  "fecha": "2026-11-02T19:16",
   "promedios": {
-    "tokens_entrada": 1167.6,
-    "tokens_salida": 141.8,
-    "costo_usd": 0.001814,
-    "latencia_ms": 15922.4,
+    "tokens_entrada": 1185.6,
+    "tokens_salida": 601.0,
+    "costo_usd": 0.0029845,
+    "latencia_ms": 7614.6,
     "validacion": 1.0,
     "validacion_primer_intento": 1.0
   },
@@ -41,7 +41,7 @@
       },
       "resultado": {
         "ok": true,
-        "id_consulta": "Q-fe9b2117",
+        "id_consulta": "Q-66625af4",
         "salida": {
           "categoria": "novedad",
           "tipo": "horas_extras_100",
@@ -52,7 +52,7 @@
           "unidad": "HS",
           "tiene_adjunto": false,
           "campos_faltantes": [],
-          "respuesta_supervisor": "Entendido, legajo 1091 con 10 hs extras al 100% el 2026-09-12. Queda pendiente de aprobación de RRHH.",
+          "respuesta_supervisor": "Entendido, legajo 1091 con 10 hs extras al 100% el 12/09. Queda pendiente de aprobación de RRHH.",
           "confianza": 0.95
         },
         "estado": "pendiente_jefe",
@@ -60,10 +60,10 @@
         "metricas": {
           "proveedor": "xai",
           "modelo": "grok-4.3",
-          "tokens_entrada": 1170,
-          "tokens_salida": 138,
-          "costo_usd": 0.0018075,
-          "latencia_ms": 8460,
+          "tokens_entrada": 1188,
+          "tokens_salida": 460,
+          "costo_usd": 0.002635,
+          "latencia_ms": 6253,
           "intentos": 1
         }
       }
@@ -89,7 +89,7 @@
       },
       "resultado": {
         "ok": true,
-        "id_consulta": "Q-a7c27add",
+        "id_consulta": "Q-463cf886",
         "salida": {
           "categoria": "novedad",
           "tipo": "licencia_particular",
@@ -102,7 +102,7 @@
           "campos_faltantes": [
             "legajo"
           ],
-          "respuesta_supervisor": "Entendí que Juancito tomará licencia particular el 29/09/2026 por un día. ¿Podés pasarme el legajo para cargar la novedad?",
+          "respuesta_supervisor": "Hola, para cargar la licencia particular de Juancito el 29/09, ¿podrías pasarme el legajo? Gracias.",
           "confianza": 0.85
         },
         "estado": "requiere_dato",
@@ -110,10 +110,10 @@
         "metricas": {
           "proveedor": "xai",
           "modelo": "grok-4.3",
-          "tokens_entrada": 1166,
-          "tokens_salida": 139,
-          "costo_usd": 0.001805,
-          "latencia_ms": 13373,
+          "tokens_entrada": 1184,
+          "tokens_salida": 546,
+          "costo_usd": 0.002845,
+          "latencia_ms": 6719,
           "intentos": 1
         }
       }
@@ -139,7 +139,7 @@
       },
       "resultado": {
         "ok": true,
-        "id_consulta": "Q-54e676e8",
+        "id_consulta": "Q-9c75f1bc",
         "salida": {
           "categoria": "novedad",
           "tipo": "licencia_enfermedad",
@@ -152,7 +152,7 @@
           "campos_faltantes": [
             "adjunto"
           ],
-          "respuesta_supervisor": "Entendí que el legajo 1083 tuvo licencia por enfermedad del 9 al 15 de septiembre (7 días). Como no adjuntaste el certificado todavía, te pido que lo mandes cuando lo tengas. Queda pendiente de aprobación de RRHH.",
+          "respuesta_supervisor": "Entendido, el legajo 1083 faltó por enfermedad del 9 al 15. Cuando tengas el certificado, mandámelo por favor.",
           "confianza": 0.9
         },
         "estado": "requiere_dato",
@@ -160,10 +160,10 @@
         "metricas": {
           "proveedor": "xai",
           "modelo": "grok-4.3",
-          "tokens_entrada": 1165,
-          "tokens_salida": 167,
-          "costo_usd": 0.00187375,
-          "latencia_ms": 18402,
+          "tokens_entrada": 1183,
+          "tokens_salida": 820,
+          "costo_usd": 0.00352875,
+          "latencia_ms": 9255,
           "intentos": 1
         }
       }
@@ -192,7 +192,7 @@
       },
       "resultado": {
         "ok": true,
-        "id_consulta": "Q-d709ea5d",
+        "id_consulta": "Q-602e3b60",
         "salida": {
           "categoria": "novedad",
           "tipo": null,
@@ -209,7 +209,7 @@
             "cantidad",
             "unidad"
           ],
-          "respuesta_supervisor": "Che, para cargar las horas de la semana pasada necesito los legajos de los chicos, las fechas exactas y las horas precisas. ¿Me pasás los detalles?",
+          "respuesta_supervisor": "Che, para cargar lo de la semana pasada necesito los legajos de los pibes, las fechas exactas y si son horas extras al 50 o 100. Después pasame los detalles precisos.",
           "confianza": 0.3
         },
         "estado": "requiere_dato",
@@ -217,10 +217,10 @@
         "metricas": {
           "proveedor": "xai",
           "modelo": "grok-4.3",
-          "tokens_entrada": 1174,
-          "tokens_salida": 139,
-          "costo_usd": 0.001815,
-          "latencia_ms": 18401,
+          "tokens_entrada": 1192,
+          "tokens_salida": 773,
+          "costo_usd": 0.0034225,
+          "latencia_ms": 11464,
           "intentos": 1
         }
       }
@@ -244,7 +244,7 @@
       },
       "resultado": {
         "ok": true,
-        "id_consulta": "Q-2fc530e5",
+        "id_consulta": "Q-44517f7f",
         "salida": {
           "categoria": "fuera_de_tema",
           "tipo": null,
@@ -255,18 +255,18 @@
           "unidad": null,
           "tiene_adjunto": false,
           "campos_faltantes": [],
-          "respuesta_supervisor": "Disculpá, solo puedo ayudarte con novedades de personal como ausencias, licencias o extras. Para lo del comedor o el partido, consultá en otra área.",
-          "confianza": 1.0
+          "respuesta_supervisor": "Disculpá, pero solo puedo ayudar con novedades de personal como horas extras, ausencias o licencias.",
+          "confianza": 0.95
         },
         "estado": "fuera_de_alcance",
         "aprobador_requerido": null,
         "metricas": {
           "proveedor": "xai",
           "modelo": "grok-4.3",
-          "tokens_entrada": 1163,
-          "tokens_salida": 126,
-          "costo_usd": 0.00176875,
-          "latencia_ms": 20976,
+          "tokens_entrada": 1181,
+          "tokens_salida": 406,
+          "costo_usd": 0.00249125,
+          "latencia_ms": 4382,
           "intentos": 1
         }
       }
