@@ -19,7 +19,11 @@ class _Tee(io.TextIOBase):
 
     def flush(self):
         for d in self.destinos:
-            d.flush()
+            if not d.closed:  # en Windows se llama al liberar el objeto, con el archivo ya cerrado
+                d.flush()
+
+    def close(self):  # no cierra la terminal ni el archivo: eso lo hace grabar_terminal
+        pass
 
 
 @contextlib.contextmanager
