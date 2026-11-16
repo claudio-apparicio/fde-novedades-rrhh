@@ -20,6 +20,10 @@ def decidir_estado(s: Salida) -> tuple[EstadoNovedad, Optional[Aprobador]]:
     if s.categoria == Categoria.FUERA_DE_TEMA:
         return EstadoNovedad.FUERA_DE_ALCANCE, None
     if s.categoria == Categoria.CONSULTA:
+        # PE3: si la respuesta se apoya en documentos (citas válidas), queda respondida; si no, la
+        # contesta una persona de RRHH. El modelo no decide esto: lo decide la presencia de citas.
+        if s.citas:
+            return EstadoNovedad.RESPONDIDA, None
         return EstadoNovedad.DERIVADA_RRHH, Aprobador.ANALISTA_RRHH
     if s.campos_faltantes:
         return EstadoNovedad.REQUIERE_DATO, None

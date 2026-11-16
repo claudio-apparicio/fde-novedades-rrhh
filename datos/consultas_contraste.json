@@ -1,0 +1,14 @@
+{
+  "_descripcion": "Consultas de búsqueda exacta (códigos, formularios, normas) para comparar la búsqueda solo vectorial contra la híbrida. Acierto = entre los primeros k fragmentos hay uno del documento esperado que contiene el término exacto.",
+  "k": 3,
+  "consultas": [
+    {"id": "C1", "usuario": "EMP-1091", "consulta": "concepto 2040", "termino": "2040", "documento": "GUI-06"},
+    {"id": "C2", "usuario": "ANA-001", "consulta": "formulario F-12", "termino": "F-12", "documento": "CRI-03"},
+    {"id": "C3", "usuario": "SUP-003", "consulta": "HE100", "termino": "HE100", "documento": "PRO-02"},
+    {"id": "C4", "usuario": "SUP-001", "consulta": "planilla F-07", "termino": "F-07", "documento": "PRO-02"},
+    {"id": "C5", "usuario": "EMP-1083", "consulta": "Ley 19.032", "termino": "19.032", "documento": "GUI-06"},
+    {"id": "C6", "usuario": "ANA-001", "consulta": "art. 207", "termino": "art. 207", "documento": "CCT-05"},
+    {"id": "C7", "usuario": "JEF-001", "consulta": "EXC-2026-03", "termino": "EXC-2026-03", "documento": "CRI-03"},
+    {"id": "C8", "usuario": "SUP-002", "consulta": "código LPA", "termino": "LPA", "documento": "PRO-02"}
+  ]
+}

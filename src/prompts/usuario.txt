@@ -1,9 +1,12 @@
 Fecha y hora de recepción: $recibida_en ($dia_semana)
-Supervisor: $supervisor_id
+Usuario: $supervisor_id (rol: $rol)
 Sector: $sector
 Canal: $canal
 
-Mensaje del supervisor:
+Mensaje del usuario:
 """
 $mensaje
 """
+
+Fragmentos de documentos de la empresa que podés usar (son los únicos que este usuario tiene permitido ver):
+$documentos

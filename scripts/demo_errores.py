@@ -3,7 +3,8 @@ Demuestra el manejo de errores y guarda la salida real de la terminal en
 resultados/terminal_errores.txt:
 
   1. Salida inválida: el proveedor simulado devuelve dos veces un JSON que no cumple Salida
-     → se registra qué campo falló, se reintenta una vez y se devuelve un error estructurado.
+     → se registra qué campo falló, se reintenta una vez y se devuelve un error estructurado
+       COMPLETO (campos fallidos con su valor, respuesta cruda del modelo y métricas).
   2. Error de API real: se llama al proveedor configurado en .env con una clave inválida
      → el motor captura el error (401 en Anthropic y OpenAI, 400 en xAI) y lo devuelve
        estructurado (sin reintentar).
@@ -39,7 +40,9 @@ def mostrar(titulo: str, motor: Motor) -> None:
     sys.stdout.flush()
     r = motor.procesar(ENTRADA)
     sys.stderr.flush()
-    print(r.model_dump_json(indent=2, exclude={"respuesta_cruda"}))
+    # Estructura COMPLETA del error, sin recortes: incluye respuesta_cruda (lo que devolvió el modelo
+    # en el último intento) para que la evidencia no dependa de fragmentos de log
+    print(r.model_dump_json(indent=2))
 
 
 def main() -> int:

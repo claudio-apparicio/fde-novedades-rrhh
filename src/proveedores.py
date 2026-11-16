@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from dataclasses import dataclass
 from typing import Optional
 
@@ -134,6 +135,10 @@ class ProveedorSimulado(Proveedor):
 
     - respuestas: textos a devolver en orden (si no se pasa, devuelve una respuesta fija válida).
     - error: si se pasa un TipoError, cada llamada falla con ese error.
+    - prompts: guarda el texto completo de cada pedido (sistema + mensajes). Los tests de permisos
+      lo usan para comprobar que nada restringido llegó al modelo.
+    Sin respuestas cargadas: si el mensaje es una pregunta y recibió fragmentos, contesta una consulta
+    citando el primero (sirve para probar el RAG sin clave); si no, devuelve RESPUESTA_FIJA.
     Los tokens se ESTIMAN (4 caracteres ≈ 1 token) y el costo es 0.
     """
     nombre = "simulado"
@@ -147,22 +152,43 @@ class ProveedorSimulado(Proveedor):
         "confianza": 0.2,
     }
 
+    SIN_DATOS = {"tipo": None, "legajo": None, "fecha_desde": None, "fecha_hasta": None, "cantidad": None,
+                 "unidad": None, "tiene_adjunto": False, "campos_faltantes": []}
+
     def __init__(self, respuestas: Optional[list[str]] = None, error: Optional[TipoError] = None):
         super().__init__("simulado")
         self._respuestas = list(respuestas or [])
         self._error = error
         self.llamadas = 0
+        self.prompts: list[str] = []
 
     def generar(self, sistema: str, mensajes: list[dict]) -> RespuestaLLM:
         self.llamadas += 1
+        prompt = sistema + "".join(m["content"] for m in mensajes)
+        self.prompts.append(prompt)
         if self._error:
             raise ErrorProveedor(self._error, f"[SIMULADO] error de API: {self._error.value}",
                                  reintentable=self._error in (TipoError.LIMITE_DE_USO, TipoError.SIN_CONEXION,
                                                               TipoError.TIEMPO_AGOTADO))
-        texto = self._respuestas.pop(0) if self._respuestas else json.dumps(self.RESPUESTA_FIJA,
-                                                                            ensure_ascii=False)
-        prompt = sistema + "".join(m["content"] for m in mensajes)
+        texto = self._respuestas.pop(0) if self._respuestas else self._respuesta_por_defecto(mensajes)
         return RespuestaLLM(texto, len(prompt) // 4, len(texto) // 4)
+
+    def _respuesta_por_defecto(self, mensajes: list[dict]) -> str:
+        pedido = mensajes[-1]["content"]
+        pregunta = re.search(r'"""\n(.*?)\n"""', pedido, re.S)
+        ids = re.findall(r"^\[([A-Z]{3}-\d{2}#\d{3})\]", pedido, re.M)
+        if pregunta and "?" in pregunta.group(1):
+            if ids:
+                despues = pedido.split(f"[{ids[0]}]", 1)[1]
+                fragmento = despues.split("\n", 1)[-1].split("\n\n[", 1)[0].strip()
+                return json.dumps({**self.SIN_DATOS, "categoria": "consulta", "confianza": 0.6,
+                                   "respuesta_supervisor": f"[SIMULADO] Según {ids[0]}: {fragmento[:300]}",
+                                   "citas": [ids[0]]}, ensure_ascii=False)
+            return json.dumps({**self.SIN_DATOS, "categoria": "consulta", "confianza": 0.5,
+                               "respuesta_supervisor": "[SIMULADO] No tengo esa información en los "
+                                                       "documentos; tu consulta pasa a RRHH.",
+                               "citas": []}, ensure_ascii=False)
+        return json.dumps(self.RESPUESTA_FIJA, ensure_ascii=False)
 
 
 # Respuesta inválida para la demo de errores (SIMULAR=respuesta_invalida): un tipo que no existe

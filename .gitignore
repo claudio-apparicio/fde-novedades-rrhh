@@ -1,4 +1,4 @@
-# Secretos
+# Secretos: la clave va solo en .env, que nunca se sube
 .env
 
 # Python
@@ -7,6 +7,10 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+
+# PE3: índice de ChromaDB y modelo de embeddings (se regeneran con python -m src.rag.ingesta)
+indice/
+modelos/
 
 # Entregables generados (el PDF se sube al aula, no al repo)
 entrega/

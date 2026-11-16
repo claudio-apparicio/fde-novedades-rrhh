@@ -1,0 +1,14 @@
+{
+  "_descripcion": "Directorio de usuarios ficticio. El rol y el sector salen de acá, nunca del mensaje ni de la Entrada: un usuario no puede declararse otro rol.",
+  "usuarios": [
+    {"id": "SUP-001", "rol": "supervisor", "sector": "torneria"},
+    {"id": "SUP-002", "rol": "supervisor", "sector": "soldadura"},
+    {"id": "SUP-003", "rol": "supervisor", "sector": "montaje"},
+    {"id": "SUP-004", "rol": "supervisor", "sector": "deposito"},
+    {"id": "SUP-005", "rol": "supervisor", "sector": "mantenimiento"},
+    {"id": "ANA-001", "rol": "analista_rrhh", "sector": null},
+    {"id": "JEF-001", "rol": "jefe_rrhh", "sector": null},
+    {"id": "EMP-1091", "rol": "empleado", "sector": "montaje"},
+    {"id": "EMP-1083", "rol": "empleado", "sector": "torneria"}
+  ]
+}

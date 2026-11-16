@@ -1,0 +1,29 @@
+{
+  "_descripcion": "Catálogo de documentos y permisos. Lo mantiene RRHH. Un archivo que no figura acá NO se ingesta (denegado por defecto). Una sección solo puede RESTRINGIR los roles de su documento, nunca ampliarlos.",
+  "roles_validos": ["supervisor", "analista_rrhh", "jefe_rrhh", "empleado"],
+  "documentos": [
+    {"codigo": "POL-01", "archivo": "POL-01_politica_licencias_vacaciones.md",
+     "titulo": "Política interna de licencias y vacaciones", "version": "2026-09",
+     "roles": ["supervisor", "analista_rrhh", "jefe_rrhh", "empleado"]},
+    {"codigo": "PRO-02", "archivo": "PRO-02_procedimiento_novedades.md",
+     "titulo": "Procedimiento para informar novedades", "version": "2026-10",
+     "roles": ["supervisor", "analista_rrhh", "jefe_rrhh"]},
+    {"codigo": "CRI-03", "archivo": "CRI-03_criterio_aprobacion_rrhh.md",
+     "titulo": "Criterio de aprobación de novedades (RRHH)", "version": "2026-10",
+     "roles": ["analista_rrhh", "jefe_rrhh"],
+     "secciones": {"5. Excepciones autorizadas por gerencia": ["jefe_rrhh"]}},
+    {"codigo": "ESC-04", "archivo": "ESC-04_escala_salarial_2026.md",
+     "titulo": "Escala salarial de planta 2026", "version": "2026-09",
+     "roles": ["analista_rrhh", "jefe_rrhh"],
+     "secciones": {"4. Adicionales fuera de convenio": ["jefe_rrhh"]}},
+    {"codigo": "CCT-05", "archivo": "CCT-05_resumen_convenio_lct.txt",
+     "titulo": "Resumen de convenio colectivo y LCT", "version": "2026-03",
+     "roles": ["supervisor", "analista_rrhh", "jefe_rrhh", "empleado"]},
+    {"codigo": "GUI-06", "archivo": "GUI-06_guia_recibo_empleado.md",
+     "titulo": "Guía del recibo de sueldo y del estado de tus novedades", "version": "2026-09",
+     "roles": ["supervisor", "analista_rrhh", "jefe_rrhh", "empleado"]},
+    {"codigo": "PRO-07", "archivo": "PRO-07_protocolo_licencias_sensibles.md",
+     "titulo": "Protocolo de licencias con causa sensible", "version": "2026-08",
+     "roles": ["analista_rrhh", "jefe_rrhh"]}
+  ]
+}
