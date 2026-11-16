@@ -1,0 +1,60 @@
+Verificación del README desde un clon limpio · 2026-11-16 23:29 · Linux · Python 3.13.18
+Carpeta temporal: /tmp/clon_limpio_ku5r6cyy
+
+$ git clone --depth 1 --branch pe3-rag https://github.com/claudio-apparicio/fde-novedades-rrhh.git
+  Cloning into '/tmp/clon_limpio_ku5r6cyy/fde-novedades-rrhh'...
+  → código de salida 0
+
+$ python -m venv .venv
+  → código de salida 0
+
+$ pip install -r requirements.txt
+  → código de salida 0
+
+$ cp .env.example .env            # sin completar ninguna clave
+
+$ pytest
+  ........................................................................ [ 82%]
+  ...............                                                          [100%]
+  87 passed in 4.54s
+  → código de salida 0
+
+$ PROVEEDOR_LLM=simulado python -m src.motor --mensaje "Juan hizo horas extra el sábado"
+  [... 34 líneas antes ...]
+      "latencia_busqueda_ms": 0
+    }
+  }
+  23:29:46 INFO    [Q-5bb82b75] consulta de SUP-003 (supervisor, montaje, whatsapp): Juan hizo horas extra el sábado
+  23:29:46 INFO    [Q-5bb82b75] llamada 1 · simulado/simulado · 1213 + 96 tokens · 0 ms
+  23:29:46 INFO    [Q-5bb82b75] OK · categoria=novedad · estado=requiere_dato · 1309 tokens (estimado) · US$ 0.000000 · 0 ms
+  → código de salida 0
+
+$ EMBEDDINGS=simulado python -m src.rag.ingesta
+  [... 40 líneas antes ...]
+      "rol_empleado": false,
+      "orden": 6,
+      "documento": "CRI-03",
+      "config": "seccion"
+    }
+  }
+  → código de salida 0
+
+$ EMBEDDINGS=simulado PROVEEDOR_LLM=simulado python -m src.rag.responder --usuario EMP-1091 --mensaje "¿Qué es el concepto 1035 de mi recibo?"
+  [... 52 líneas antes ...]
+  }
+  23:29:48 INFO    búsqueda hibrida (empleado, k=5) '¿Qué es el concepto 1035 de mi recibo?' → ['GUI-06#002', 'GUI-06#001', 'GUI-06#004', 'GUI-06#003', 'GUI-06#005'] · 16 ms
+  23:29:48 INFO    [Q-99e99ec9] EMP-1091 (empleado): 5 fragmentos permitidos → ['GUI-06#002', 'GUI-06#001', 'GUI-06#004', 'GUI-06#003', 'GUI-06#005']
+  23:29:48 INFO    [Q-99e99ec9] consulta de EMP-1091 (empleado, montaje, chat_web): ¿Qué es el concepto 1035 de mi recibo?
+  23:29:48 INFO    [Q-99e99ec9] llamada 1 · simulado/simulado · 1708 + 120 tokens · 0 ms
+  23:29:48 INFO    [Q-99e99ec9] OK · categoria=consulta · estado=respondida · 1828 tokens (estimado) · US$ 0.000000 · 0 ms
+  → código de salida 0
+
+$ git check-ignore -v .env      # .env tiene que estar ignorado
+  .gitignore:2:.env	.env
+  → código de salida 0
+
+$ git status --porcelain --ignored .env   # '!!' = ignorado
+  !! .env
+  → código de salida 0
+
+RESULTADO: el README funciona desde un clon limpio, sin claves.
