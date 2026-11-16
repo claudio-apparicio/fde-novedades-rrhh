@@ -225,10 +225,9 @@ def main() -> int:
     err = bloque(err_file, "── 1.", "── 2.")
     if err and err[-1].startswith("── 3."):
         err = err[:-1]
-    err = [ln for ln in err if '"respuesta_cruda"' not in ln]
-    err = comprimir_json(err)
+    err = comprimir_json(err)   # estructura completa, con respuesta_cruda (devolución de la PE2)
     api = bloque(err_file, "── 2.", "── 3.")
-    story.append(terminal(err, 30))
+    story.append(terminal(err, 40))
     if api and not api[0].startswith("(no se encontró"):
         api_logs = [ln for ln in api if " ERROR " in ln or ln.startswith("──") or '"tipo_error"' in ln]
         story += [Spacer(1, 2), terminal(api_logs, 6)]
@@ -237,7 +236,9 @@ def main() -> int:
 
     # ---------------- 4. Medición ----------------
     story.append(P("4. Medición de las 5 consultas", h2))
-    filas = [["#", "Consulta", "¿Validó?", "Tokens (entrada / salida)", "Costo USD", "Latencia ms", "Estado"]]
+    origen = "campo usage de la API" if det[0]["resultado"]["metricas"].get("fuente_tokens", "usage") == "usage" \
+        else "ESTIMADOS (simulado)"
+    filas = [["#", "Consulta", "¿Validó?", f"Tokens entrada / salida ({origen})", "Costo USD", "Latencia ms", "Estado"]]
     for d in det:
         r, c, m = d["resultado"], d["consulta"], d["resultado"]["metricas"]
         valido = ("Sí" if m["intentos"] == 1 else "Sí (reintento)") if r["ok"] else "No"
@@ -259,18 +260,20 @@ def main() -> int:
         color = "#1e7a46" if b else "#b3261e"
         return f"<font color='{color}'><b>{'cumple' if b else 'no cumple'}</b></font>"
 
-    comp = [["Indicador", "Medido (n = 5)", "Meta PE1", "Resultado"],
+    comp = [["KPI con meta (PE1)", "Medido (n = 5)", "Meta PE1", "Resultado"],
             ["KPI técnico: detección de faltantes al ingreso",
              f"{kpi['detectadas']}/{kpi['incompletas']} = {kpi['deteccion_faltantes']:.0%}", ">= 95 %", marca(d_ok)],
             ["Falsas alarmas (pide datos a una consulta completa o fuera de tema)",
              f"{kpi['falsas']}/{kpi['completas_o_fuera']} = {kpi['falsas_alarmas']:.0%}", "<= 10 %", marca(f_ok)],
+            ["<b>Indicadores exploratorios (sin meta, línea de base)</b>", "", "", ""],
             ["Categoría correcta (novedad / consulta / fuera de tema)", f"{kpi['categoria_correcta']:.0%}", "-", "-"],
             ["Latencia promedio por consulta (la demora hoy es de 22 h por novedad)",
              f"{prom['latencia_ms']:.0f} ms", "-", "-"],
             ["Costo promedio por consulta / proyectado mes (40 novedades)",
              f"US$ {prom['costo_usd']:.6f} / US$ {prom['costo_usd'] * 40:.4f}", "-", "-"]]
-    story += [Spacer(1, 3), tabla([[esc(x) if i < 3 else x for i, x in enumerate(f)] for f in comp],
-                                  [W * 0.48, W * 0.2, W * 0.16, W * 0.16]),
+    story += [Spacer(1, 3), tabla([[x if (i == 3 or x.startswith("<b>")) else esc(x) for i, x in enumerate(f)]
+                                   for f in comp], [W * 0.48, W * 0.2, W * 0.16, W * 0.16],
+                                  [("BACKGROUND", (0, 3), (-1, 3), AZUL_C)]),
               P(esc("n = 5 no alcanza para afirmar que se cumple la meta: es la primera medición. En la PE6 se "
                     "corre el set fijo de 60 mensajes definido en la PE1."), chico)]
 

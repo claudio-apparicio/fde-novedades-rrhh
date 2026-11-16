@@ -7,6 +7,10 @@ Contrato de datos del motor (Pydantic).
            ErrorMotor con los campos que fallaron.
 - ResultadoMotor / ErrorMotor: lo que devuelve el motor, con métricas.
 
+PE3: la Salida suma `citas` (identificadores de los fragmentos de documentos que usó el modelo) y la
+Entrada acepta también a analistas, jefe y empleados. El rol NO viaja en la Entrada: se busca en el
+directorio de usuarios por id (src/rag/permisos.py), para que nadie pueda declararse otro rol.
+
 Las reglas de negocio (a quién va, si se eleva al jefe) NO las decide el modelo:
 están en reglas.py y se aplican después de validar.
 """
@@ -15,7 +19,7 @@ from __future__ import annotations
 from datetime import date, datetime, timedelta
 from decimal import Decimal
 from enum import Enum
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, model_validator
 
@@ -28,6 +32,8 @@ RANGOS_POR_UNIDAD = {
     "$": (Decimal("1000"), Decimal("500000")),
 }
 DIAS_MAX_RETROACTIVO = 60
+# Identificador de un fragmento de documento: código del documento + número (p. ej. POL-01#004)
+PATRON_FRAGMENTO = r"^[A-Z]{3}-\d{2}#\d{3}$"
 
 
 # ---------------------------------------------------------------------------
@@ -82,6 +88,7 @@ class CampoFaltante(str, Enum):
 
 class EstadoNovedad(str, Enum):
     REQUIERE_DATO = "requiere_dato"
+    RESPONDIDA = "respondida"                  # PE3: consulta contestada con fuentes
     PENDIENTE_ANALISTA = "pendiente_analista"
     PENDIENTE_JEFE = "pendiente_jefe"
     REVISION_MANUAL = "revision_manual"
@@ -102,6 +109,7 @@ class TipoError(str, Enum):
     AUTENTICACION = "autenticacion"
     API = "error_api"
     CONFIGURACION = "configuracion"
+    PERMISOS = "permisos"
 
 
 class ErrorDeCampo(ValueError):
@@ -133,11 +141,20 @@ CAMPOS_OBLIGATORIOS = {
 class Entrada(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
-    supervisor_id: str = Field(pattern=r"^SUP-\d{3}$", examples=["SUP-003"])
-    sector: Sector
+    # Id de quien escribe. Se llama supervisor_id por compatibilidad con la PE2; desde la PE3 también
+    # admite analistas (ANA-), jefe (JEF-) y empleados (EMP-<legajo>).
+    supervisor_id: str = Field(pattern=r"^(SUP-\d{3}|ANA-\d{3}|JEF-\d{3}|EMP-\d{4})$",
+                               examples=["SUP-003"])
+    sector: Optional[Sector] = None
     canal: Canal
     recibida_en: datetime
     mensaje: str = Field(min_length=10, max_length=2000)
+
+    @model_validator(mode="after")
+    def sector_de_supervisor(self) -> "Entrada":
+        if self.supervisor_id.startswith("SUP-") and self.sector is None:
+            raise ValueError("un supervisor tiene que informar su sector")
+        return self
 
 
 # ---------------------------------------------------------------------------
@@ -157,10 +174,26 @@ class Salida(BaseModel):
     campos_faltantes: list[CampoFaltante] = Field(default_factory=list)
     respuesta_supervisor: str = Field(min_length=20, max_length=600)
     confianza: float = Field(ge=0, le=1)
+    # PE3: fragmentos de documentos que respaldan la respuesta (solo pueden ser de los recibidos)
+    citas: list[Annotated[str, Field(pattern=PATRON_FRAGMENTO)]] = Field(default_factory=list, max_length=6)
 
     @model_validator(mode="after")
     def validar_coherencia(self, info: ValidationInfo) -> "Salida":
         datos = ("tipo", "legajo", "fecha_desde", "fecha_hasta", "cantidad", "unidad")
+
+        # Las citas tienen que ser fragmentos que efectivamente se le pasaron al modelo. El motor siempre
+        # valida con contexto (ids_validos); sin contexto (p. ej. al anidar la Salida ya validada en
+        # ResultadoMotor) no se vuelve a chequear.
+        contexto = info.context or {}
+        if self.citas:
+            if self.categoria == Categoria.FUERA_DE_TEMA:
+                raise ErrorDeCampo("citas", "una consulta fuera de tema no lleva citas")
+        if self.citas and "ids_validos" in contexto:
+            validos = set(contexto["ids_validos"] or ())
+            inventadas = [c for c in self.citas if c not in validos]
+            if inventadas:
+                raise ErrorDeCampo("citas", f"cita fragmentos que no se le pasaron: {inventadas}; "
+                                   f"válidos: {sorted(validos) or 'ninguno'}")
 
         # Si no es una novedad, no puede traer datos de novedad
         if self.categoria != Categoria.NOVEDAD:
@@ -217,6 +250,10 @@ class Metricas(BaseModel):
     costo_usd: float = 0.0
     latencia_ms: int = 0
     intentos: int = 0
+    # De dónde salen los tokens: "usage" = campo usage de la respuesta de la API (real);
+    # "estimado" = proveedor simulado (4 caracteres ≈ 1 token, sin costo)
+    fuente_tokens: Literal["usage", "estimado"] = "usage"
+    latencia_busqueda_ms: int = 0            # PE3: tiempo de la búsqueda en documentos
 
 
 class ResultadoMotor(BaseModel):
@@ -240,5 +277,6 @@ class ErrorMotor(BaseModel):
     tipo_error: TipoError
     mensaje: str
     campos_fallidos: list[CampoFallido] = Field(default_factory=list)
-    respuesta_cruda: Optional[str] = None
+    respuesta_cruda: Optional[str] = None    # respuesta completa del último intento, sin recortar
+    requiere_humano: Literal[True] = True     # un error siempre pasa a una persona de RRHH
     metricas: Metricas

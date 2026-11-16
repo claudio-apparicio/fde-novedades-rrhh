@@ -5,6 +5,9 @@ Recibe una Entrada, arma el prompt desde las plantillas de src/prompts/, llama a
 valida la respuesta contra Salida, aplica las reglas de negocio y devuelve un ResultadoMotor
 o un ErrorMotor, siempre con tokens, costo en USD y latencia en ms.
 
+Desde la PE3 también recibe, opcionalmente, fragmentos de documentos ya filtrados por permisos
+(los arma src/rag/responder.py); el modelo solo puede citar esos fragmentos.
+
 Uso:
     python -m src.motor --mensaje "El 1091 hizo 10 hs extras al 100% el sábado"
 """
@@ -35,6 +38,7 @@ log = logging.getLogger("motor")
 DIR_PROMPTS = Path(__file__).parent / "prompts"
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 ESPERA_REINTENTO_API_S = 2.0
+SIN_DOCUMENTOS = "(no hay fragmentos de documentos para esta consulta)"
 
 
 def cargar_plantilla(nombre: str) -> Template:
@@ -102,6 +106,7 @@ def describir_errores(exc: Exception) -> list[CampoFallido]:
 class Motor:
     def __init__(self, proveedor: Optional[Proveedor] = None):
         self.proveedor = proveedor or crear_proveedor_desde_entorno()
+        self.fuente_tokens = "estimado" if self.proveedor.nombre == "simulado" else "usage"
         if self.proveedor.modelo not in PRECIOS_USD_POR_MTOK:
             raise ErrorProveedor(TipoError.CONFIGURACION,
                                  f"No hay precio cargado para el modelo '{self.proveedor.modelo}': "
@@ -132,15 +137,22 @@ class Motor:
                      self.proveedor.nombre, m.modelo, r.tokens_entrada, r.tokens_salida, razon, ms)
             return r
 
-    def procesar(self, entrada: Entrada) -> Union[ResultadoMotor, ErrorMotor]:
-        qid = f"Q-{uuid.uuid4().hex[:8]}"
-        m = Metricas(proveedor=self.proveedor.nombre, modelo=self.proveedor.modelo)
+    def procesar(self, entrada: Entrada, documentos: Optional[str] = None,
+                 ids_validos: Optional[set[str]] = None, rol: str = "supervisor",
+                 qid: Optional[str] = None) -> Union[ResultadoMotor, ErrorMotor]:
+        """documentos: fragmentos ya filtrados por rol (PE3); ids_validos: los únicos que puede citar."""
+        qid = qid or f"Q-{uuid.uuid4().hex[:8]}"
+        m = Metricas(proveedor=self.proveedor.nombre, modelo=self.proveedor.modelo,
+                     fuente_tokens=self.fuente_tokens)
+        sector = entrada.sector.value if entrada.sector else "(no aplica)"
         mensajes = [{"role": "user", "content": PLANTILLA_USUARIO.substitute(
             recibida_en=entrada.recibida_en.strftime("%Y-%m-%d %H:%M"),
             dia_semana=DIAS[entrada.recibida_en.weekday()],
-            supervisor_id=entrada.supervisor_id, sector=entrada.sector.value,
-            canal=entrada.canal.value, mensaje=entrada.mensaje)}]
-        log.info("[%s] consulta de %s (%s, %s): %s", qid, entrada.supervisor_id, entrada.sector.value,
+            supervisor_id=entrada.supervisor_id, rol=rol, sector=sector,
+            canal=entrada.canal.value, mensaje=entrada.mensaje,
+            documentos=documentos or SIN_DOCUMENTOS)}]
+        contexto = {"recibida_en": entrada.recibida_en, "ids_validos": set(ids_validos or ())}
+        log.info("[%s] consulta de %s (%s, %s, %s): %s", qid, entrada.supervisor_id, rol, sector,
                  entrada.canal.value, entrada.mensaje[:70])
 
         for intento in (1, 2):  # 1 intento + 1 reintento si la salida es inválida
@@ -149,13 +161,11 @@ class Motor:
             except ErrorProveedor as e:
                 return ErrorMotor(id_consulta=qid, tipo_error=e.tipo, mensaje=e.mensaje, metricas=m)
             try:
-                salida = Salida.model_validate(extraer_json(r.texto),
-                                               context={"recibida_en": entrada.recibida_en})
+                salida = Salida.model_validate(extraer_json(r.texto), context=contexto)
             except (ValidationError, ValueError) as exc:
                 campos = describir_errores(exc)
                 for c in campos:
-                    error = c.error if len(c.error) <= 90 else c.error[:87] + "..."
-                    log.warning("[%s] validación falló en '%s': %s%s", qid, c.campo, error,
+                    log.warning("[%s] validación falló en '%s': %s%s", qid, c.campo, c.error,
                                 f" (valor: {c.valor!r})" if c.valor is not None else "")
                 if intento == 1:
                     log.info("[%s] reintento 1/1: se reenvían los errores al modelo", qid)
@@ -168,12 +178,12 @@ class Motor:
                 return ErrorMotor(id_consulta=qid, tipo_error=TipoError.VALIDACION,
                                   mensaje="La respuesta del modelo no cumple el contrato Salida "
                                           "después de 1 reintento. La novedad pasa a revisión manual.",
-                                  campos_fallidos=campos, respuesta_cruda=r.texto[:600], metricas=m)
+                                  campos_fallidos=campos, respuesta_cruda=r.texto, metricas=m)
 
             estado, aprobador = decidir_estado(salida)
-            log.info("[%s] OK · categoria=%s · estado=%s · %d tokens · US$ %.6f · %d ms", qid,
+            log.info("[%s] OK · categoria=%s · estado=%s · %d tokens (%s) · US$ %.6f · %d ms", qid,
                      salida.categoria.value, estado.value, m.tokens_entrada + m.tokens_salida,
-                     m.costo_usd, m.latencia_ms)
+                     m.fuente_tokens, m.costo_usd, m.latencia_ms)
             return ResultadoMotor(id_consulta=qid, salida=salida, estado=estado,
                                   aprobador_requerido=aprobador, metricas=m)
 
