@@ -67,6 +67,30 @@ def compacto(r: dict) -> list[str]:
     return g.comprimir_json(json.dumps(d, ensure_ascii=False, indent=1).splitlines())
 
 
+def analizar_errores(resp: dict, med: dict, preguntas: list[dict]) -> list[str]:
+    """Explica cada pregunta normal que falló con los rankings de la medición (sin texto armado a mano)."""
+    detalle = {modo: {x["id"]: x for x in med["resultados"][resp["fragmentado"]]["topk"][modo]["detalle"]}
+               for modo in ("vectorial", "bm25", "hibrida")}
+    esperados = {p["id"]: p["documentos_esperados"] for p in preguntas}
+    lineas = []
+    for f in resp["filas"]:
+        if f["correcto"] or f["tipo"] != "normal" or f["id"] not in detalle["hibrida"]:
+            continue
+        v, b, h = (detalle[m][f["id"]] for m in ("vectorial", "bm25", "hibrida"))
+        docs = "/".join(esperados[f["id"]])
+        pos = lambda x: f"{x['posicion']}.º" if x["posicion"] else "fuera de los 10 primeros"  # noqa: E731
+        lineas.append(esc(
+            f"Error {f['id']}: BM25 ubica {docs} en el puesto {pos(b)} ({b['top5'][0]}); la vectorial, {pos(v)}; "
+            f"la híbrida le manda al modelo {', '.join(f['fragmentos_enviados'])}"
+            + (f", donde {docs} aparece recién en el puesto {pos(h)} y con otra sección" if h["posicion"] else "")
+            + f". El modelo no inventó: devolvió requiere_humano = {'true' if f['requiere_humano'] else 'false'} "
+            f"({f['motivo']}). Causa: con pesos iguales, lo que solo encuentra BM25 queda por debajo de lo que "
+            "encuentran los dos buscadores. Mejora (serializar las tablas con su encabezado y tratar como búsqueda "
+            "exacta las preguntas que piden un código) para validar con el set de evals de la PE6, no con estas "
+            "mismas 10 preguntas."))
+    return lineas
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default="https://github.com/claudio-apparicio/fde-novedades-rrhh")
@@ -147,6 +171,8 @@ def main() -> int:
     story.append(tabla(filas, [W * 0.04, W * 0.075, W * 0.07, W * 0.38, W * 0.12, W * 0.14, W * 0.13, W * 0.045]))
     if resp:
         pr = resp["promedios"]
+        for linea in analizar_errores(resp, med, preguntas):
+            story.append(P(linea, chico))
         story.append(P(esc(
             f"Correctas: {resp['correctas']}/{resp['n']}. Normal = responde con fuentes del documento esperado; sin respuesta "
             f"y restringida = requiere_humano y ningún fragmento restringido en el prompt enviado. Promedio por consulta: "
@@ -193,6 +219,7 @@ def main() -> int:
                     "BM25 sí, y cuando la consulta trae un código su ranking pesa el doble en la fusión."), chico)]
 
     # ---------------- 6. Respuestas ----------------
+    story.append(CondPageBreak(75 * mm))
     story.append(P("6. Una respuesta con fuentes (P03) y una con requiere_humano = true (P09, supervisor sin permiso)", h2))
     if resp and all("completo" in por_id.get(i, {}) for i in ("P03", "P09")):
         izq, der = compacto(por_id["P03"]["completo"]), compacto(por_id["P09"]["completo"])
