@@ -1,0 +1,7 @@
+fragmentado,fragmentos,busqueda,hit@1,hit@3,hit@5,mrr,latencia_ms
+seccion,47,vectorial,7/8,7/8,7/8,0.875,12.7
+seccion,47,bm25,6/8,8/8,8/8,0.854,0.3
+seccion,47,hibrida,7/8,7/8,8/8,0.9,8.6
+fijo300,71,vectorial,6/8,7/8,7/8,0.812,10.6
+fijo300,71,bm25,6/8,8/8,8/8,0.854,0.3
+fijo300,71,hibrida,7/8,7/8,7/8,0.893,8.3

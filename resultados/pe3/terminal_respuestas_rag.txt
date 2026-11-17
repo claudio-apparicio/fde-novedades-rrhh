@@ -1,0 +1,313 @@
+$ python scripts/demo_rag.py      # 2026-11-16 20:50
+Proveedor: xai · modelo: grok-4.3 · fragmentado: seccion · embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+── P01 (normal) · SUP-003 (supervisor): ¿Cuántos días de licencia le corresponden a un operario que se casa? ──────────
+20:50:39 INFO    búsqueda hibrida (supervisor, k=5) '¿Cuántos días de licencia le corresponden a un ope' → ['POL-01#006', 'POL-01#004', 'POL-01#005', 'PRO-02#004', 'POL-01#003'] · 45 ms
+20:50:39 INFO    [Q-338054d1] SUP-003 (supervisor): 5 fragmentos permitidos → ['POL-01#006', 'POL-01#004', 'POL-01#005', 'PRO-02#004', 'POL-01#003']
+20:50:39 INFO    [Q-338054d1] consulta de SUP-003 (supervisor, montaje, chat_web): ¿Cuántos días de licencia le corresponden a un operario que se casa?
+20:50:47 INFO    [Q-338054d1] llamada 1 · xai/grok-4.3 · 2319 + 516 tokens (razonamiento: 398) · 7513 ms
+20:50:47 INFO    [Q-338054d1] OK · categoria=consulta · estado=respondida · 2835 tokens (usage) · US$ 0.004189 · 7513 ms
+{
+  "estado": "respondida",
+  "requiere_humano": false,
+  "motivo": null,
+  "fuentes": [
+    "POL-01#004"
+  ],
+  "fragmentos_enviados": [
+    "POL-01#006",
+    "POL-01#004",
+    "POL-01#005",
+    "PRO-02#004",
+    "POL-01#003"
+  ],
+  "respuesta": "Para matrimonio se otorgan 10 días corridos contra presentación de acta o libreta de matrimonio."
+}
+
+── P02 (normal) · SUP-001 (supervisor): ¿Hasta cuándo puedo mandar las novedades para que entren en la liquidación del mes? ──────────
+20:50:47 INFO    búsqueda hibrida (supervisor, k=5) '¿Hasta cuándo puedo mandar las novedades para que ' → ['PRO-02#001', 'PRO-02#002', 'PRO-02#005', 'PRO-02#003', 'GUI-06#006'] · 10 ms
+20:50:47 INFO    [Q-52b80379] SUP-001 (supervisor): 5 fragmentos permitidos → ['PRO-02#001', 'PRO-02#002', 'PRO-02#005', 'PRO-02#003', 'GUI-06#006']
+20:50:47 INFO    [Q-52b80379] consulta de SUP-001 (supervisor, torneria, chat_web): ¿Hasta cuándo puedo mandar las novedades para que entren en la liquida
+20:50:54 INFO    [Q-52b80379] llamada 1 · xai/grok-4.3 · 1997 + 477 tokens (razonamiento: 351) · 6745 ms
+20:50:54 INFO    [Q-52b80379] OK · categoria=consulta · estado=respondida · 2474 tokens (usage) · US$ 0.003689 · 6745 ms
+{
+  "estado": "respondida",
+  "requiere_humano": false,
+  "motivo": null,
+  "fuentes": [
+    "PRO-02#005"
+  ],
+  "fragmentos_enviados": [
+    "PRO-02#001",
+    "PRO-02#002",
+    "PRO-02#005",
+    "PRO-02#003",
+    "GUI-06#006"
+  ],
+  "respuesta": "El cierre de novedades del mes es el último día hábil a las 12 h: lo que llega después se liquida el mes siguiente."
+}
+
+── P03 (normal) · EMP-1091 (empleado): ¿Qué es el concepto 1035 que aparece en mi recibo de sueldo? ──────────
+20:50:54 INFO    búsqueda hibrida (empleado, k=5) '¿Qué es el concepto 1035 que aparece en mi recibo ' → ['GUI-06#002', 'GUI-06#004', 'GUI-06#003', 'GUI-06#006', 'GUI-06#001'] · 14 ms
+20:50:54 INFO    [Q-096babbf] EMP-1091 (empleado): 5 fragmentos permitidos → ['GUI-06#002', 'GUI-06#004', 'GUI-06#003', 'GUI-06#006', 'GUI-06#001']
+20:50:54 INFO    [Q-096babbf] consulta de EMP-1091 (empleado, montaje, chat_web): ¿Qué es el concepto 1035 que aparece en mi recibo de sueldo?
+20:51:00 INFO    [Q-096babbf] llamada 1 · xai/grok-4.3 · 2076 + 560 tokens (razonamiento: 429) · 6145 ms
+20:51:00 INFO    [Q-096babbf] OK · categoria=consulta · estado=respondida · 2636 tokens (usage) · US$ 0.003995 · 6145 ms
+{
+  "ok": true,
+  "id_consulta": "Q-096babbf",
+  "usuario_id": "EMP-1091",
+  "rol": "empleado",
+  "salida": {
+    "categoria": "consulta",
+    "tipo": null,
+    "legajo": null,
+    "fecha_desde": null,
+    "fecha_hasta": null,
+    "cantidad": null,
+    "unidad": null,
+    "tiene_adjunto": false,
+    "campos_faltantes": [],
+    "respuesta_supervisor": "El concepto 1035 es Premio por asistencia (presentismo): se cobra si en el mes no tuviste ausencias injustificadas ni llegadas tarde reiteradas.",
+    "confianza": 0.95,
+    "citas": [
+      "GUI-06#003"
+    ]
+  },
+  "estado": "respondida",
+  "aprobador_requerido": null,
+  "requiere_humano": false,
+  "motivo_humano": null,
+  "fuentes": [
+    {
+      "documento": "GUI-06",
+      "titulo": "Guía del recibo de sueldo y del estado de tus novedades",
+      "seccion": "2. Conceptos de haberes",
+      "fragmento_id": "GUI-06#003",
+      "puntaje": 0.04675
+    }
+  ],
+  "fragmentos_enviados": [
+    "GUI-06#002",
+    "GUI-06#004",
+    "GUI-06#003",
+    "GUI-06#006",
+    "GUI-06#001"
+  ],
+  "metricas": {
+    "proveedor": "xai",
+    "modelo": "grok-4.3",
+    "tokens_entrada": 2076,
+    "tokens_salida": 560,
+    "costo_usd": 0.003995,
+    "latencia_ms": 6145,
+    "intentos": 1,
+    "fuente_tokens": "usage",
+    "latencia_busqueda_ms": 14
+  }
+}
+
+── P04 (normal) · SUP-004 (supervisor): ¿Con qué código cargo una licencia por examen de un empleado? ──────────
+20:51:00 INFO    búsqueda hibrida (supervisor, k=5) '¿Con qué código cargo una licencia por examen de u' → ['POL-01#004', 'POL-01#006', 'POL-01#005', 'GUI-06#001', 'PRO-02#003'] · 9 ms
+20:51:00 INFO    [Q-793c361e] SUP-004 (supervisor): 5 fragmentos permitidos → ['POL-01#004', 'POL-01#006', 'POL-01#005', 'GUI-06#001', 'PRO-02#003']
+20:51:00 INFO    [Q-793c361e] consulta de SUP-004 (supervisor, deposito, chat_web): ¿Con qué código cargo una licencia por examen de un empleado?
+20:51:07 INFO    [Q-793c361e] llamada 1 · xai/grok-4.3 · 2171 + 505 tokens (razonamiento: 387) · 7000 ms
+20:51:07 INFO    [Q-793c361e] OK · categoria=consulta · estado=derivada_rrhh · 2676 tokens (usage) · US$ 0.003976 · 7000 ms
+20:51:07 INFO    [Q-793c361e] requiere_humano=true (sin_evidencia_en_documentos)
+{
+  "estado": "derivada_rrhh",
+  "requiere_humano": true,
+  "motivo": "sin_evidencia_en_documentos",
+  "fuentes": [],
+  "fragmentos_enviados": [
+    "POL-01#004",
+    "POL-01#006",
+    "POL-01#005",
+    "GUI-06#001",
+    "PRO-02#003"
+  ],
+  "respuesta": "No tengo información sobre códigos específicos para cargar licencias por examen en los documentos disponibles. La consulta pasa a una persona de RRHH."
+}
+
+── P05 (normal) · ANA-001 (analista_rrhh): ¿Cuál es el tope legal de horas extras por mes y por año? ──────────
+20:51:07 INFO    búsqueda hibrida (analista_rrhh, k=5) '¿Cuál es el tope legal de horas extras por mes y p' → ['CCT-05#003', 'GUI-06#003', 'ESC-04#003', 'POL-01#006', 'CRI-03#003'] · 15 ms
+20:51:07 INFO    [Q-e0e955d0] ANA-001 (analista_rrhh): 5 fragmentos permitidos → ['CCT-05#003', 'GUI-06#003', 'ESC-04#003', 'POL-01#006', 'CRI-03#003']
+20:51:07 INFO    [Q-e0e955d0] consulta de ANA-001 (analista_rrhh, (no aplica), chat_web): ¿Cuál es el tope legal de horas extras por mes y por año?
+20:51:13 INFO    [Q-e0e955d0] llamada 1 · xai/grok-4.3 · 2156 + 566 tokens (razonamiento: 429) · 6245 ms
+20:51:13 INFO    [Q-e0e955d0] OK · categoria=consulta · estado=respondida · 2722 tokens (usage) · US$ 0.004110 · 6245 ms
+{
+  "estado": "respondida",
+  "requiere_humano": false,
+  "motivo": null,
+  "fuentes": [
+    "CCT-05#003"
+  ],
+  "fragmentos_enviados": [
+    "CCT-05#003",
+    "GUI-06#003",
+    "ESC-04#003",
+    "POL-01#006",
+    "CRI-03#003"
+  ],
+  "respuesta": "El tope es de 30 horas extras por mes y 200 horas extras por año calendario (Decreto 484/2000); por encima de ese tope hace falta una autorización especial."
+}
+
+── P06 (normal) · EMP-1083 (empleado): Tengo 7 años de antigüedad, ¿cuántos días de vacaciones me tocan? ──────────
+20:51:13 INFO    búsqueda hibrida (empleado, k=5) 'Tengo 7 años de antigüedad, ¿cuántos días de vacac' → ['POL-01#003', 'CCT-05#007', 'GUI-06#003', 'POL-01#007', 'CCT-05#006'] · 9 ms
+20:51:13 INFO    [Q-4f008266] EMP-1083 (empleado): 5 fragmentos permitidos → ['POL-01#003', 'CCT-05#007', 'GUI-06#003', 'POL-01#007', 'CCT-05#006']
+20:51:13 INFO    [Q-4f008266] consulta de EMP-1083 (empleado, torneria, chat_web): Tengo 7 años de antigüedad, ¿cuántos días de vacaciones me tocan?
+20:51:19 INFO    [Q-4f008266] llamada 1 · xai/grok-4.3 · 2260 + 502 tokens (razonamiento: 379) · 5621 ms
+20:51:19 INFO    [Q-4f008266] OK · categoria=consulta · estado=respondida · 2762 tokens (usage) · US$ 0.004080 · 5621 ms
+{
+  "estado": "respondida",
+  "requiere_humano": false,
+  "motivo": null,
+  "fuentes": [
+    "POL-01#003"
+  ],
+  "fragmentos_enviados": [
+    "POL-01#003",
+    "CCT-05#007",
+    "GUI-06#003",
+    "POL-01#007",
+    "CCT-05#006"
+  ],
+  "respuesta": "Con más de 5 y hasta 10 años de antigüedad corresponden 21 días corridos de vacaciones anuales."
+}
+
+── P07 (sin_respuesta) · SUP-002 (supervisor): ¿El comedor de planta abre los días feriados? ──────────
+20:51:19 INFO    búsqueda hibrida (supervisor, k=5) '¿El comedor de planta abre los días feriados?' → ['CCT-05#004', 'PRO-02#001', 'POL-01#003', 'GUI-06#003', 'CCT-05#003'] · 8 ms
+20:51:19 INFO    [Q-b23c252d] SUP-002 (supervisor): 5 fragmentos permitidos → ['CCT-05#004', 'PRO-02#001', 'POL-01#003', 'GUI-06#003', 'CCT-05#003']
+20:51:19 INFO    [Q-b23c252d] consulta de SUP-002 (supervisor, soldadura, chat_web): ¿El comedor de planta abre los días feriados?
+20:51:24 INFO    [Q-b23c252d] llamada 1 · xai/grok-4.3 · 2170 + 433 tokens (razonamiento: 313) · 5397 ms
+20:51:24 INFO    [Q-b23c252d] OK · categoria=consulta · estado=derivada_rrhh · 2603 tokens (usage) · US$ 0.003795 · 5397 ms
+20:51:24 INFO    [Q-b23c252d] requiere_humano=true (sin_evidencia_en_documentos)
+{
+  "estado": "derivada_rrhh",
+  "requiere_humano": true,
+  "motivo": "sin_evidencia_en_documentos",
+  "fuentes": [],
+  "fragmentos_enviados": [
+    "CCT-05#004",
+    "PRO-02#001",
+    "POL-01#003",
+    "GUI-06#003",
+    "CCT-05#003"
+  ],
+  "respuesta": "No tengo información sobre el comedor de planta en los documentos disponibles. Paso tu consulta a una persona de RRHH para que te responda."
+}
+
+── P08 (sin_respuesta) · EMP-1091 (empleado): ¿La empresa me reintegra el gasto de guardería de mi hijo? ──────────
+20:51:24 INFO    búsqueda hibrida (empleado, k=5) '¿La empresa me reintegra el gasto de guardería de ' → ['CCT-05#006', 'POL-01#001', 'POL-01#002', 'POL-01#004', 'GUI-06#001'] · 9 ms
+20:51:24 INFO    [Q-312f8b71] EMP-1091 (empleado): 5 fragmentos permitidos → ['CCT-05#006', 'POL-01#001', 'POL-01#002', 'POL-01#004', 'GUI-06#001']
+20:51:24 INFO    [Q-312f8b71] consulta de EMP-1091 (empleado, montaje, chat_web): ¿La empresa me reintegra el gasto de guardería de mi hijo?
+20:51:30 INFO    [Q-312f8b71] llamada 1 · xai/grok-4.3 · 2076 + 437 tokens (razonamiento: 314) · 6511 ms
+20:51:30 INFO    [Q-312f8b71] OK · categoria=consulta · estado=derivada_rrhh · 2513 tokens (usage) · US$ 0.003687 · 6511 ms
+20:51:30 INFO    [Q-312f8b71] requiere_humano=true (sin_evidencia_en_documentos)
+{
+  "estado": "derivada_rrhh",
+  "requiere_humano": true,
+  "motivo": "sin_evidencia_en_documentos",
+  "fuentes": [],
+  "fragmentos_enviados": [
+    "CCT-05#006",
+    "POL-01#001",
+    "POL-01#002",
+    "POL-01#004",
+    "GUI-06#001"
+  ],
+  "respuesta": "No tengo información sobre reintegro de gastos de guardería en los documentos disponibles. Paso tu consulta a una persona de RRHH para que te responda."
+}
+
+── P09 (restringida) · SUP-005 (supervisor): ¿Hasta qué monto de adelanto de sueldo puede aprobar el analista sin pasar por el jefe? ──────────
+20:51:31 INFO    búsqueda hibrida (supervisor, k=5) '¿Hasta qué monto de adelanto de sueldo puede aprob' → ['GUI-06#005', 'GUI-06#006', 'GUI-06#004', 'PRO-02#003', 'PRO-02#002'] · 11 ms
+20:51:31 INFO    [Q-58324c2a] SUP-005 (supervisor): 5 fragmentos permitidos → ['GUI-06#005', 'GUI-06#006', 'GUI-06#004', 'PRO-02#003', 'PRO-02#002']
+20:51:31 INFO    [Q-58324c2a] consulta de SUP-005 (supervisor, mantenimiento, chat_web): ¿Hasta qué monto de adelanto de sueldo puede aprobar el analista sin p
+20:51:37 INFO    [Q-58324c2a] llamada 1 · xai/grok-4.3 · 2081 + 502 tokens (razonamiento: 390) · 6946 ms
+20:51:37 INFO    [Q-58324c2a] OK · categoria=consulta · estado=derivada_rrhh · 2583 tokens (usage) · US$ 0.003856 · 6946 ms
+20:51:37 INFO    [Q-58324c2a] requiere_humano=true (sin_evidencia_en_documentos)
+{
+  "ok": true,
+  "id_consulta": "Q-58324c2a",
+  "usuario_id": "SUP-005",
+  "rol": "supervisor",
+  "salida": {
+    "categoria": "consulta",
+    "tipo": null,
+    "legajo": null,
+    "fecha_desde": null,
+    "fecha_hasta": null,
+    "cantidad": null,
+    "unidad": null,
+    "tiene_adjunto": false,
+    "campos_faltantes": [],
+    "respuesta_supervisor": "No tengo esa información en los documentos que dispongo. Paso tu consulta a una persona de RRHH.",
+    "confianza": 0.9,
+    "citas": []
+  },
+  "estado": "derivada_rrhh",
+  "aprobador_requerido": "analista_rrhh",
+  "requiere_humano": true,
+  "motivo_humano": "sin_evidencia_en_documentos",
+  "fuentes": [],
+  "fragmentos_enviados": [
+    "GUI-06#005",
+    "GUI-06#006",
+    "GUI-06#004",
+    "PRO-02#003",
+    "PRO-02#002"
+  ],
+  "metricas": {
+    "proveedor": "xai",
+    "modelo": "grok-4.3",
+    "tokens_entrada": 2081,
+    "tokens_salida": 502,
+    "costo_usd": 0.00385625,
+    "latencia_ms": 6946,
+    "intentos": 1,
+    "fuente_tokens": "usage",
+    "latencia_busqueda_ms": 11
+  }
+}
+Prompt enviado: fragmentos de CRI-03 = 0 → OK, no llegó nada restringido
+
+── P10 (restringida) · EMP-1091 (empleado): ¿Cuánto se paga la hora de un oficial múltiple según la escala salarial 2026? ──────────
+20:51:37 INFO    búsqueda hibrida (empleado, k=5) '¿Cuánto se paga la hora de un oficial múltiple seg' → ['GUI-06#003', 'CCT-05#009', 'GUI-06#005', 'CCT-05#003', 'CCT-05#008'] · 9 ms
+20:51:37 INFO    [Q-40a459b4] EMP-1091 (empleado): 5 fragmentos permitidos → ['GUI-06#003', 'CCT-05#009', 'GUI-06#005', 'CCT-05#003', 'CCT-05#008']
+20:51:37 INFO    [Q-40a459b4] consulta de EMP-1091 (empleado, montaje, chat_web): ¿Cuánto se paga la hora de un oficial múltiple según la escala salaria
+20:51:43 INFO    [Q-40a459b4] llamada 1 · xai/grok-4.3 · 2082 + 446 tokens (razonamiento: 336) · 5443 ms
+20:51:43 INFO    [Q-40a459b4] OK · categoria=consulta · estado=derivada_rrhh · 2528 tokens (usage) · US$ 0.003717 · 5443 ms
+20:51:43 INFO    [Q-40a459b4] requiere_humano=true (sin_evidencia_en_documentos)
+{
+  "estado": "derivada_rrhh",
+  "requiere_humano": true,
+  "motivo": "sin_evidencia_en_documentos",
+  "fuentes": [],
+  "fragmentos_enviados": [
+    "GUI-06#003",
+    "CCT-05#009",
+    "GUI-06#005",
+    "CCT-05#003",
+    "CCT-05#008"
+  ],
+  "respuesta": "No tengo esa información en los documentos disponibles. La consulta pasa a una persona de RRHH."
+}
+Prompt enviado: fragmentos de ESC-04 = 0 → OK, no llegó nada restringido
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+#    Tipo          Rol            Estado          Humano  Fuentes                   Tokens in/out US$       ms LLM  ms búsq. OK
+P01  normal        supervisor     respondida      no      POL-01#004                2319/516      0.004189  7513    45       ✔
+P02  normal        supervisor     respondida      no      PRO-02#005                1997/477      0.003689  6745    10       ✔
+P03  normal        empleado       respondida      no      GUI-06#003                2076/560      0.003995  6145    14       ✔
+P04  normal        supervisor     derivada_rrhh   sí      -                         2171/505      0.003976  7000    9        ✘
+P05  normal        analista_rrhh  respondida      no      CCT-05#003                2156/566      0.004110  6245    15       ✔
+P06  normal        empleado       respondida      no      POL-01#003                2260/502      0.004080  5621    9        ✔
+P07  sin_respuesta supervisor     derivada_rrhh   sí      -                         2170/433      0.003795  5397    8        ✔
+P08  sin_respuesta empleado       derivada_rrhh   sí      -                         2076/437      0.003687  6511    9        ✔
+P09  restringida   supervisor     derivada_rrhh   sí      -                         2081/502      0.003856  6946    11       ✔
+P10  restringida   empleado       derivada_rrhh   sí      -                         2082/446      0.003717  5443    9        ✔
+════════════════════════════════════════════════════════════════════════════════════════════════════
+Correctas: 9/10 · normales con fuentes del documento esperado: 5/6 · sin respuesta y restringidas con requiere_humano y sin fuga en el prompt: 4/4
+Promedio (tokens: campo usage de la API): 2139 entrada / 494 salida · US$ 0.003909 · modelo 6357 ms · búsqueda 14 ms
+
+Archivos: resultados/pe3/respuestas_rag.json, terminal_respuestas_rag.txt

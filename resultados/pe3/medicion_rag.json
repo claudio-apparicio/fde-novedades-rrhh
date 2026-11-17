@@ -1,0 +1,1271 @@
+{
+  "fecha": "2026-11-16T20:50",
+  "embeddings": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "k_sistema": 5,
+  "configs": {
+    "seccion": {
+      "max_caracteres": 900,
+      "solapamiento": 0,
+      "respeta_parrafos": true
+    },
+    "fijo300": {
+      "max_caracteres": 300,
+      "solapamiento": 60,
+      "respeta_parrafos": false
+    }
+  },
+  "ganadora": "seccion",
+  "n_casos": 8,
+  "casos": [
+    {
+      "id": "P01",
+      "tipo": "normal",
+      "usuario": "SUP-003",
+      "pregunta": "¿Cuántos días de licencia le corresponden a un operario que se casa?",
+      "documentos_esperados": [
+        "POL-01"
+      ],
+      "respuesta_esperada": "10 días corridos"
+    },
+    {
+      "id": "P02",
+      "tipo": "normal",
+      "usuario": "SUP-001",
+      "pregunta": "¿Hasta cuándo puedo mandar las novedades para que entren en la liquidación del mes?",
+      "documentos_esperados": [
+        "PRO-02"
+      ],
+      "respuesta_esperada": "último día hábil a las 12 h"
+    },
+    {
+      "id": "P03",
+      "tipo": "normal",
+      "usuario": "EMP-1091",
+      "pregunta": "¿Qué es el concepto 1035 que aparece en mi recibo de sueldo?",
+      "documentos_esperados": [
+        "GUI-06"
+      ],
+      "respuesta_esperada": "premio por asistencia (presentismo)"
+    },
+    {
+      "id": "P04",
+      "tipo": "normal",
+      "usuario": "SUP-004",
+      "pregunta": "¿Con qué código cargo una licencia por examen de un empleado?",
+      "documentos_esperados": [
+        "PRO-02"
+      ],
+      "respuesta_esperada": "LEX"
+    },
+    {
+      "id": "P05",
+      "tipo": "normal",
+      "usuario": "ANA-001",
+      "pregunta": "¿Cuál es el tope legal de horas extras por mes y por año?",
+      "documentos_esperados": [
+        "CCT-05"
+      ],
+      "respuesta_esperada": "30 por mes y 200 por año"
+    },
+    {
+      "id": "P06",
+      "tipo": "normal",
+      "usuario": "EMP-1083",
+      "pregunta": "Tengo 7 años de antigüedad, ¿cuántos días de vacaciones me tocan?",
+      "documentos_esperados": [
+        "POL-01",
+        "CCT-05"
+      ],
+      "respuesta_esperada": "21 días corridos"
+    },
+    {
+      "id": "P09",
+      "tipo": "restringida",
+      "usuario": "ANA-001",
+      "usuario_autorizado": "ANA-001",
+      "pregunta": "¿Hasta qué monto de adelanto de sueldo puede aprobar el analista sin pasar por el jefe?",
+      "documentos_esperados": [
+        "CRI-03"
+      ],
+      "documento_restringido": "CRI-03",
+      "respuesta_esperada": "supervisor: nada de CRI-03 y requiere_humano = true; analista: $100.000"
+    },
+    {
+      "id": "P10",
+      "tipo": "restringida",
+      "usuario": "ANA-001",
+      "usuario_autorizado": "ANA-001",
+      "pregunta": "¿Cuánto se paga la hora de un oficial múltiple según la escala salarial 2026?",
+      "documentos_esperados": [
+        "ESC-04"
+      ],
+      "documento_restringido": "ESC-04",
+      "respuesta_esperada": "empleado: nada de ESC-04 y requiere_humano = true; analista: $7.690"
+    }
+  ],
+  "resultados": {
+    "seccion": {
+      "fragmentos": 47,
+      "topk": {
+        "vectorial": {
+          "hit@1": 7,
+          "hit@3": 7,
+          "hit@5": 7,
+          "n": 8,
+          "mrr": 0.875,
+          "latencia_ms": 12.7,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 1,
+              "top5": [
+                "POL-01#006",
+                "POL-01#004",
+                "POL-01#007",
+                "POL-01#005",
+                "POL-01#003"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#005",
+                "PRO-02#002",
+                "PRO-02#001",
+                "PRO-02#008",
+                "GUI-06#006"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#002",
+                "GUI-06#006",
+                "GUI-06#005",
+                "GUI-06#004",
+                "CCT-05#008"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": null,
+              "top5": [
+                "POL-01#005",
+                "POL-01#006",
+                "CCT-05#001",
+                "POL-01#004",
+                "POL-01#001"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 1,
+              "top5": [
+                "CCT-05#003",
+                "ESC-04#003",
+                "GUI-06#003",
+                "POL-01#006",
+                "PRO-02#006"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "CCT-05#007",
+                "CCT-05#004",
+                "POL-01#007",
+                "CCT-05#002"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#004",
+                "ESC-04#001",
+                "GUI-06#005",
+                "CRI-03#003",
+                "CRI-03#002"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 1,
+              "top5": [
+                "ESC-04#003",
+                "ESC-04#002",
+                "ESC-04#001",
+                "GUI-06#003",
+                "PRO-02#006"
+              ]
+            }
+          ]
+        },
+        "bm25": {
+          "hit@1": 6,
+          "hit@3": 8,
+          "hit@5": 8,
+          "n": 8,
+          "mrr": 0.854,
+          "latencia_ms": 0.3,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 3,
+              "top5": [
+                "CCT-05#009",
+                "PRO-02#004",
+                "POL-01#006",
+                "POL-01#004",
+                "POL-01#005"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#001",
+                "PRO-02#002",
+                "POL-01#002",
+                "PRO-02#005",
+                "PRO-02#003"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#002",
+                "GUI-06#003",
+                "GUI-06#004",
+                "GUI-06#001",
+                "CCT-05#008"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#004",
+                "POL-01#004",
+                "GUI-06#001",
+                "PRO-02#003",
+                "PRO-02#002"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 1,
+              "top5": [
+                "CCT-05#003",
+                "CRI-03#003",
+                "GUI-06#003",
+                "PRO-02#002",
+                "POL-01#006"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "CCT-05#007",
+                "GUI-06#003",
+                "CCT-05#006",
+                "CCT-05#008"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#004",
+                "CRI-03#002",
+                "CRI-03#003",
+                "CRI-03#005",
+                "PRO-07#003"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 2,
+              "top5": [
+                "CCT-05#009",
+                "ESC-04#003",
+                "ESC-04#002",
+                "CCT-05#007",
+                "CCT-05#008"
+              ]
+            }
+          ]
+        },
+        "hibrida": {
+          "hit@1": 7,
+          "hit@3": 7,
+          "hit@5": 8,
+          "n": 8,
+          "mrr": 0.9,
+          "latencia_ms": 8.6,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 1,
+              "top5": [
+                "POL-01#006",
+                "POL-01#004",
+                "POL-01#005",
+                "PRO-02#004",
+                "POL-01#003"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#001",
+                "PRO-02#002",
+                "PRO-02#005",
+                "PRO-02#003",
+                "GUI-06#006"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#002",
+                "GUI-06#004",
+                "GUI-06#003",
+                "GUI-06#006",
+                "GUI-06#001"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": 5,
+              "top5": [
+                "POL-01#004",
+                "POL-01#006",
+                "POL-01#005",
+                "GUI-06#001",
+                "PRO-02#003"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 1,
+              "top5": [
+                "CCT-05#003",
+                "GUI-06#003",
+                "ESC-04#003",
+                "POL-01#006",
+                "CRI-03#003"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "CCT-05#007",
+                "GUI-06#003",
+                "POL-01#007",
+                "CCT-05#006"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#004",
+                "CRI-03#002",
+                "CRI-03#003",
+                "PRO-07#003",
+                "GUI-06#006"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 1,
+              "top5": [
+                "ESC-04#003",
+                "ESC-04#002",
+                "CCT-05#009",
+                "CCT-05#008",
+                "GUI-06#003"
+              ]
+            }
+          ]
+        }
+      },
+      "fugas": [
+        {
+          "id": "P09",
+          "usuario": "SUP-005",
+          "rol": "supervisor",
+          "documento": "CRI-03",
+          "fragmentos_revisados": 25,
+          "fugas": []
+        },
+        {
+          "id": "P10",
+          "usuario": "EMP-1091",
+          "rol": "empleado",
+          "documento": "ESC-04",
+          "fragmentos_revisados": 21,
+          "fugas": []
+        }
+      ],
+      "contraste": [
+        {
+          "id": "C1",
+          "consulta": "concepto 2040",
+          "usuario": "EMP-1091",
+          "documento": "GUI-06",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "GUI-06#004",
+            "top": [
+              "GUI-06#004",
+              "CCT-05#001",
+              "POL-01#003"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "GUI-06#004",
+            "top": [
+              "GUI-06#004",
+              "GUI-06#001",
+              "GUI-06#002"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "GUI-06#004",
+            "top": [
+              "GUI-06#004",
+              "GUI-06#001",
+              "GUI-06#003"
+            ]
+          }
+        },
+        {
+          "id": "C2",
+          "consulta": "formulario F-12",
+          "usuario": "ANA-001",
+          "documento": "CRI-03",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "CRI-03#004",
+            "top": [
+              "PRO-02#003",
+              "CRI-03#001",
+              "CRI-03#004"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CRI-03#004",
+            "top": [
+              "CRI-03#004",
+              "PRO-02#006",
+              "PRO-02#005"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CRI-03#004",
+            "top": [
+              "CRI-03#004",
+              "PRO-02#006",
+              "PRO-02#003"
+            ]
+          }
+        },
+        {
+          "id": "C3",
+          "consulta": "HE100",
+          "usuario": "SUP-003",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "PRO-02#004",
+            "top": [
+              "PRO-02#004",
+              "PRO-02#006",
+              "PRO-02#003"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#004"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#004",
+              "PRO-02#003"
+            ]
+          }
+        },
+        {
+          "id": "C4",
+          "consulta": "planilla F-07",
+          "usuario": "SUP-001",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "PRO-02#003",
+            "top": [
+              "PRO-02#003",
+              "PRO-02#006",
+              "PRO-02#001"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#003"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#003",
+              "PRO-02#001"
+            ]
+          }
+        },
+        {
+          "id": "C5",
+          "consulta": "Ley 19.032",
+          "usuario": "EMP-1083",
+          "documento": "GUI-06",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CCT-05#001",
+              "POL-01#004",
+              "POL-01#008"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "GUI-06#004",
+            "top": [
+              "GUI-06#004",
+              "CCT-05#001",
+              "GUI-06#001"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "GUI-06#004",
+            "top": [
+              "CCT-05#001",
+              "GUI-06#004",
+              "POL-01#005"
+            ]
+          }
+        },
+        {
+          "id": "C6",
+          "consulta": "art. 207",
+          "usuario": "ANA-001",
+          "documento": "CCT-05",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CCT-05#001",
+              "PRO-02#007",
+              "GUI-06#003"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CCT-05#005",
+            "top": [
+              "CCT-05#005",
+              "CCT-05#007",
+              "CCT-05#004"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CCT-05#005",
+            "top": [
+              "CCT-05#004",
+              "CCT-05#006",
+              "CCT-05#005"
+            ]
+          }
+        },
+        {
+          "id": "C7",
+          "consulta": "EXC-2026-03",
+          "usuario": "JEF-001",
+          "documento": "CRI-03",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CRI-03#001",
+              "PRO-02#003",
+              "PRO-02#004"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CRI-03#006",
+            "top": [
+              "CRI-03#006",
+              "CRI-03#001",
+              "PRO-02#008"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CRI-03#006",
+            "top": [
+              "CRI-03#001",
+              "PRO-02#008",
+              "CRI-03#006"
+            ]
+          }
+        },
+        {
+          "id": "C8",
+          "consulta": "código LPA",
+          "usuario": "SUP-002",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "POL-01#002",
+              "CCT-05#001",
+              "CCT-05#009"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#004",
+            "top": [
+              "PRO-02#004",
+              "GUI-06#001",
+              "GUI-06#002"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#004",
+            "top": [
+              "PRO-02#004",
+              "GUI-06#001",
+              "GUI-06#002"
+            ]
+          }
+        }
+      ]
+    },
+    "fijo300": {
+      "fragmentos": 71,
+      "topk": {
+        "vectorial": {
+          "hit@1": 6,
+          "hit@3": 7,
+          "hit@5": 7,
+          "n": 8,
+          "mrr": 0.812,
+          "latencia_ms": 10.6,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 1,
+              "top5": [
+                "POL-01#011",
+                "POL-01#008",
+                "POL-01#007",
+                "POL-01#006",
+                "POL-01#009"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#009",
+                "PRO-02#002",
+                "PRO-02#001",
+                "PRO-02#011",
+                "PRO-02#013"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#007",
+                "GUI-06#002",
+                "GUI-06#009",
+                "GUI-06#008",
+                "GUI-06#006"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": null,
+              "top5": [
+                "POL-01#006",
+                "POL-01#008",
+                "POL-01#009",
+                "POL-01#011",
+                "CCT-05#001"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 2,
+              "top5": [
+                "GUI-06#003",
+                "CCT-05#005",
+                "CCT-05#004",
+                "ESC-04#003",
+                "PRO-02#010"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "CCT-05#011",
+                "POL-01#005",
+                "POL-01#004",
+                "CCT-05#006"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#006",
+                "CRI-03#007",
+                "CRI-03#002",
+                "ESC-04#001",
+                "GUI-06#008"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 1,
+              "top5": [
+                "ESC-04#003",
+                "ESC-04#002",
+                "GUI-06#003",
+                "ESC-04#001",
+                "PRO-02#010"
+              ]
+            }
+          ]
+        },
+        "bm25": {
+          "hit@1": 6,
+          "hit@3": 8,
+          "hit@5": 8,
+          "n": 8,
+          "mrr": 0.854,
+          "latencia_ms": 0.3,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 3,
+              "top5": [
+                "CCT-05#014",
+                "PRO-02#007",
+                "POL-01#008",
+                "POL-01#006",
+                "POL-01#011"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#001",
+                "PRO-02#002",
+                "PRO-02#009",
+                "POL-01#002",
+                "POL-01#003"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#002",
+                "GUI-06#004",
+                "GUI-06#005",
+                "GUI-06#007",
+                "GUI-06#003"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#007",
+                "POL-01#007",
+                "POL-01#008",
+                "GUI-06#001",
+                "PRO-02#006"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 1,
+              "top5": [
+                "CCT-05#005",
+                "CRI-03#004",
+                "GUI-06#003",
+                "ESC-04#003",
+                "PRO-02#002"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "POL-01#005",
+                "GUI-06#004",
+                "POL-01#004",
+                "CCT-05#011"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#006",
+                "CRI-03#003",
+                "CRI-03#007",
+                "CRI-03#002",
+                "CRI-03#004"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 2,
+              "top5": [
+                "CCT-05#014",
+                "ESC-04#003",
+                "ESC-04#002",
+                "CCT-05#011",
+                "GUI-06#005"
+              ]
+            }
+          ]
+        },
+        "hibrida": {
+          "hit@1": 7,
+          "hit@3": 7,
+          "hit@5": 7,
+          "n": 8,
+          "mrr": 0.893,
+          "latencia_ms": 8.3,
+          "detalle": [
+            {
+              "id": "P01",
+              "posicion": 1,
+              "top5": [
+                "POL-01#008",
+                "POL-01#011",
+                "POL-01#006",
+                "POL-01#007",
+                "POL-01#009"
+              ]
+            },
+            {
+              "id": "P02",
+              "posicion": 1,
+              "top5": [
+                "PRO-02#009",
+                "PRO-02#001",
+                "PRO-02#002",
+                "PRO-02#004",
+                "GUI-06#009"
+              ]
+            },
+            {
+              "id": "P03",
+              "posicion": 1,
+              "top5": [
+                "GUI-06#002",
+                "GUI-06#007",
+                "GUI-06#004",
+                "GUI-06#006",
+                "GUI-06#005"
+              ]
+            },
+            {
+              "id": "P04",
+              "posicion": 7,
+              "top5": [
+                "POL-01#008",
+                "GUI-06#001",
+                "POL-01#011",
+                "POL-01#009",
+                "POL-01#006"
+              ]
+            },
+            {
+              "id": "P05",
+              "posicion": 1,
+              "top5": [
+                "CCT-05#005",
+                "GUI-06#003",
+                "ESC-04#003",
+                "PRO-02#010",
+                "POL-01#011"
+              ]
+            },
+            {
+              "id": "P06",
+              "posicion": 1,
+              "top5": [
+                "POL-01#003",
+                "POL-01#005",
+                "CCT-05#011",
+                "GUI-06#004",
+                "POL-01#004"
+              ]
+            },
+            {
+              "id": "P09",
+              "posicion": 1,
+              "top5": [
+                "CRI-03#006",
+                "CRI-03#007",
+                "CRI-03#002",
+                "CRI-03#003",
+                "CRI-03#004"
+              ]
+            },
+            {
+              "id": "P10",
+              "posicion": 1,
+              "top5": [
+                "ESC-04#003",
+                "ESC-04#002",
+                "CCT-05#014",
+                "CCT-05#013",
+                "GUI-06#003"
+              ]
+            }
+          ]
+        }
+      },
+      "fugas": [
+        {
+          "id": "P09",
+          "usuario": "SUP-005",
+          "rol": "supervisor",
+          "documento": "CRI-03",
+          "fragmentos_revisados": 32,
+          "fugas": []
+        },
+        {
+          "id": "P10",
+          "usuario": "EMP-1091",
+          "rol": "empleado",
+          "documento": "ESC-04",
+          "fragmentos_revisados": 27,
+          "fugas": []
+        }
+      ],
+      "contraste": [
+        {
+          "id": "C1",
+          "consulta": "concepto 2040",
+          "usuario": "EMP-1091",
+          "documento": "GUI-06",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "GUI-06#006",
+            "top": [
+              "CCT-05#002",
+              "CCT-05#012",
+              "GUI-06#006"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "GUI-06#006",
+            "top": [
+              "GUI-06#006",
+              "GUI-06#005",
+              "GUI-06#001"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "GUI-06#006",
+            "top": [
+              "GUI-06#006",
+              "GUI-06#004",
+              "GUI-06#005"
+            ]
+          }
+        },
+        {
+          "id": "C2",
+          "consulta": "formulario F-12",
+          "usuario": "ANA-001",
+          "documento": "CRI-03",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "CRI-03#006",
+            "top": [
+              "PRO-02#011",
+              "CRI-03#006",
+              "PRO-02#004"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CRI-03#006",
+            "top": [
+              "CRI-03#006",
+              "PRO-02#011",
+              "PRO-02#010"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CRI-03#006",
+            "top": [
+              "CRI-03#006",
+              "PRO-02#011",
+              "PRO-02#010"
+            ]
+          }
+        },
+        {
+          "id": "C3",
+          "consulta": "HE100",
+          "usuario": "SUP-003",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#010",
+              "GUI-06#004"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#010",
+            "top": [
+              "PRO-02#010",
+              "PRO-02#006"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#010",
+            "top": [
+              "PRO-02#010",
+              "PRO-02#006",
+              "GUI-06#004"
+            ]
+          }
+        },
+        {
+          "id": "C4",
+          "consulta": "planilla F-07",
+          "usuario": "SUP-001",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "PRO-02#011",
+            "top": [
+              "PRO-02#011",
+              "PRO-02#010",
+              "PRO-02#004"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#011",
+            "top": [
+              "PRO-02#011",
+              "PRO-02#010",
+              "PRO-02#004"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#011",
+            "top": [
+              "PRO-02#011",
+              "PRO-02#010",
+              "PRO-02#004"
+            ]
+          }
+        },
+        {
+          "id": "C5",
+          "consulta": "Ley 19.032",
+          "usuario": "EMP-1083",
+          "documento": "GUI-06",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CCT-05#002",
+              "CCT-05#012",
+              "CCT-05#001"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "GUI-06#006",
+            "top": [
+              "GUI-06#006",
+              "CCT-05#001",
+              "CCT-05#002"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "GUI-06#006",
+            "top": [
+              "CCT-05#002",
+              "CCT-05#001",
+              "GUI-06#006"
+            ]
+          }
+        },
+        {
+          "id": "C6",
+          "consulta": "art. 207",
+          "usuario": "ANA-001",
+          "documento": "CCT-05",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CCT-05#002",
+              "GUI-06#004",
+              "CCT-05#001"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CCT-05#007",
+            "top": [
+              "CCT-05#007",
+              "CCT-05#010",
+              "CCT-05#012"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CCT-05#007",
+            "top": [
+              "CCT-05#012",
+              "CCT-05#010",
+              "CCT-05#007"
+            ]
+          }
+        },
+        {
+          "id": "C7",
+          "consulta": "EXC-2026-03",
+          "usuario": "JEF-001",
+          "documento": "CRI-03",
+          "vectorial": {
+            "acierto": false,
+            "fragmento": null,
+            "top": [
+              "CRI-03#001",
+              "CCT-05#002",
+              "CRI-03#003"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "CRI-03#010",
+            "top": [
+              "CRI-03#010",
+              "CRI-03#009",
+              "CCT-05#002"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "CRI-03#010",
+            "top": [
+              "CRI-03#010",
+              "CCT-05#002",
+              "CRI-03#001"
+            ]
+          }
+        },
+        {
+          "id": "C8",
+          "consulta": "código LPA",
+          "usuario": "SUP-002",
+          "documento": "PRO-02",
+          "vectorial": {
+            "acierto": true,
+            "fragmento": "PRO-02#007",
+            "top": [
+              "POL-01#002",
+              "PRO-02#007",
+              "CCT-05#002"
+            ]
+          },
+          "bm25": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#007",
+              "PRO-02#008"
+            ]
+          },
+          "hibrida": {
+            "acierto": true,
+            "fragmento": "PRO-02#006",
+            "top": [
+              "PRO-02#006",
+              "PRO-02#007",
+              "GUI-06#001"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

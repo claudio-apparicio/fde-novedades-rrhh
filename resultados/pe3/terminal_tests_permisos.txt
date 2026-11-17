@@ -1,0 +1,41 @@
+$ pytest tests/test_rag_permisos.py -v      # 2026-11-16 20:50
+============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0 -- D:\Claudio Trabajo\Proyectos\fde-novedades-rrhh\.venv\Scripts\python.exe
+rootdir: D:\Claudio Trabajo\Proyectos\fde-novedades-rrhh
+plugins: anyio-4.16.0
+collecting ... collected 26 items
+
+tests/test_rag_permisos.py::test_el_indice_tiene_contenido_restringido[seccion] PASSED [  3%]
+tests/test_rag_permisos.py::test_el_indice_tiene_contenido_restringido[fijo300] PASSED [  7%]
+tests/test_rag_permisos.py::test_supervisor_no_recibe_documentos_de_rrhh[seccion] PASSED [ 11%]
+tests/test_rag_permisos.py::test_supervisor_no_recibe_documentos_de_rrhh[fijo300] PASSED [ 15%]
+tests/test_rag_permisos.py::test_supervisor_nada_restringido_en_el_prompt[seccion] PASSED [ 19%]
+tests/test_rag_permisos.py::test_supervisor_nada_restringido_en_el_prompt[fijo300] PASSED [ 23%]
+tests/test_rag_permisos.py::test_supervisor_pregunta_restringida_requiere_humano[seccion] PASSED [ 26%]
+tests/test_rag_permisos.py::test_supervisor_pregunta_restringida_requiere_humano[fijo300] PASSED [ 30%]
+tests/test_rag_permisos.py::test_empleado_solo_documentos_publicos[seccion] PASSED [ 34%]
+tests/test_rag_permisos.py::test_empleado_solo_documentos_publicos[fijo300] PASSED [ 38%]
+tests/test_rag_permisos.py::test_empleado_nada_restringido_en_el_prompt[seccion] PASSED [ 42%]
+tests/test_rag_permisos.py::test_empleado_nada_restringido_en_el_prompt[fijo300] PASSED [ 46%]
+tests/test_rag_permisos.py::test_analista_ve_criterio_pero_no_secciones_del_jefe[seccion] PASSED [ 50%]
+tests/test_rag_permisos.py::test_analista_ve_criterio_pero_no_secciones_del_jefe[fijo300] PASSED [ 53%]
+tests/test_rag_permisos.py::test_analista_nada_del_jefe_en_el_prompt[seccion] PASSED [ 57%]
+tests/test_rag_permisos.py::test_analista_nada_del_jefe_en_el_prompt[fijo300] PASSED [ 61%]
+tests/test_rag_permisos.py::test_jefe_ve_secciones_reservadas[seccion] PASSED [ 65%]
+tests/test_rag_permisos.py::test_jefe_ve_secciones_reservadas[fijo300] PASSED [ 69%]
+tests/test_rag_permisos.py::test_filtro_por_rol_en_la_consulta_a_la_base[supervisor] PASSED [ 73%]
+tests/test_rag_permisos.py::test_filtro_por_rol_en_la_consulta_a_la_base[analista_rrhh] PASSED [ 76%]
+tests/test_rag_permisos.py::test_filtro_por_rol_en_la_consulta_a_la_base[jefe_rrhh] PASSED [ 80%]
+tests/test_rag_permisos.py::test_filtro_por_rol_en_la_consulta_a_la_base[empleado] PASSED [ 84%]
+tests/test_rag_permisos.py::test_usuario_fuera_del_directorio_no_busca_ni_llama_al_modelo[seccion] PASSED [ 88%]
+tests/test_rag_permisos.py::test_usuario_fuera_del_directorio_no_busca_ni_llama_al_modelo[fijo300] PASSED [ 92%]
+tests/test_rag_permisos.py::test_el_rol_sale_del_directorio_y_no_de_la_entrada[seccion] PASSED [ 96%]
+tests/test_rag_permisos.py::test_el_rol_sale_del_directorio_y_no_de_la_entrada[fijo300] PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_rag_permisos.py::test_el_indice_tiene_contenido_restringido[seccion]
+  D:\Claudio Trabajo\Proyectos\fde-novedades-rrhh\.venv\Lib\site-packages\chromadb\telemetry\opentelemetry\__init__.py:128: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    if asyncio.iscoroutinefunction(f):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 26 passed, 1 warning in 2.94s ========================

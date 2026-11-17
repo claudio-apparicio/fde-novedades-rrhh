@@ -1,0 +1,441 @@
+{
+  "fecha": "2026-11-16T20:51",
+  "proveedor": "xai",
+  "modelo": "grok-4.3",
+  "fragmentado": "seccion",
+  "embeddings": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "correctas": 9,
+  "n": 10,
+  "promedios": {
+    "tokens_entrada": 2138.8,
+    "tokens_salida": 494.4,
+    "costo_usd": 0.0039095,
+    "latencia_ms": 6356.6,
+    "busqueda_ms": 13.9
+  },
+  "filas": [
+    {
+      "id": "P01",
+      "tipo": "normal",
+      "usuario": "SUP-003",
+      "rol": "supervisor",
+      "pregunta": "¿Cuántos días de licencia le corresponden a un operario que se casa?",
+      "documentos_esperados": [
+        "POL-01"
+      ],
+      "ok": true,
+      "estado": "respondida",
+      "requiere_humano": false,
+      "motivo": null,
+      "fuentes": [
+        "POL-01#004"
+      ],
+      "fragmentos_enviados": [
+        "POL-01#006",
+        "POL-01#004",
+        "POL-01#005",
+        "PRO-02#004",
+        "POL-01#003"
+      ],
+      "respuesta": "Para matrimonio se otorgan 10 días corridos contra presentación de acta o libreta de matrimonio.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2319,
+      "tokens_salida": 516,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00418875,
+      "latencia_ms": 7513,
+      "busqueda_ms": 45,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P02",
+      "tipo": "normal",
+      "usuario": "SUP-001",
+      "rol": "supervisor",
+      "pregunta": "¿Hasta cuándo puedo mandar las novedades para que entren en la liquidación del mes?",
+      "documentos_esperados": [
+        "PRO-02"
+      ],
+      "ok": true,
+      "estado": "respondida",
+      "requiere_humano": false,
+      "motivo": null,
+      "fuentes": [
+        "PRO-02#005"
+      ],
+      "fragmentos_enviados": [
+        "PRO-02#001",
+        "PRO-02#002",
+        "PRO-02#005",
+        "PRO-02#003",
+        "GUI-06#006"
+      ],
+      "respuesta": "El cierre de novedades del mes es el último día hábil a las 12 h: lo que llega después se liquida el mes siguiente.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 1997,
+      "tokens_salida": 477,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00368875,
+      "latencia_ms": 6745,
+      "busqueda_ms": 10,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P03",
+      "tipo": "normal",
+      "usuario": "EMP-1091",
+      "rol": "empleado",
+      "pregunta": "¿Qué es el concepto 1035 que aparece en mi recibo de sueldo?",
+      "documentos_esperados": [
+        "GUI-06"
+      ],
+      "ok": true,
+      "estado": "respondida",
+      "requiere_humano": false,
+      "motivo": null,
+      "fuentes": [
+        "GUI-06#003"
+      ],
+      "fragmentos_enviados": [
+        "GUI-06#002",
+        "GUI-06#004",
+        "GUI-06#003",
+        "GUI-06#006",
+        "GUI-06#001"
+      ],
+      "respuesta": "El concepto 1035 es Premio por asistencia (presentismo): se cobra si en el mes no tuviste ausencias injustificadas ni llegadas tarde reiteradas.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2076,
+      "tokens_salida": 560,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.003995,
+      "latencia_ms": 6145,
+      "busqueda_ms": 14,
+      "intentos": 1,
+      "correcto": true,
+      "completo": {
+        "ok": true,
+        "id_consulta": "Q-096babbf",
+        "usuario_id": "EMP-1091",
+        "rol": "empleado",
+        "salida": {
+          "categoria": "consulta",
+          "tipo": null,
+          "legajo": null,
+          "fecha_desde": null,
+          "fecha_hasta": null,
+          "cantidad": null,
+          "unidad": null,
+          "tiene_adjunto": false,
+          "campos_faltantes": [],
+          "respuesta_supervisor": "El concepto 1035 es Premio por asistencia (presentismo): se cobra si en el mes no tuviste ausencias injustificadas ni llegadas tarde reiteradas.",
+          "confianza": 0.95,
+          "citas": [
+            "GUI-06#003"
+          ]
+        },
+        "estado": "respondida",
+        "aprobador_requerido": null,
+        "requiere_humano": false,
+        "motivo_humano": null,
+        "fuentes": [
+          {
+            "documento": "GUI-06",
+            "titulo": "Guía del recibo de sueldo y del estado de tus novedades",
+            "seccion": "2. Conceptos de haberes",
+            "fragmento_id": "GUI-06#003",
+            "puntaje": 0.04675
+          }
+        ],
+        "fragmentos_enviados": [
+          "GUI-06#002",
+          "GUI-06#004",
+          "GUI-06#003",
+          "GUI-06#006",
+          "GUI-06#001"
+        ],
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 2076,
+          "tokens_salida": 560,
+          "costo_usd": 0.003995,
+          "latencia_ms": 6145,
+          "intentos": 1,
+          "fuente_tokens": "usage",
+          "latencia_busqueda_ms": 14
+        }
+      }
+    },
+    {
+      "id": "P04",
+      "tipo": "normal",
+      "usuario": "SUP-004",
+      "rol": "supervisor",
+      "pregunta": "¿Con qué código cargo una licencia por examen de un empleado?",
+      "documentos_esperados": [
+        "PRO-02"
+      ],
+      "ok": true,
+      "estado": "derivada_rrhh",
+      "requiere_humano": true,
+      "motivo": "sin_evidencia_en_documentos",
+      "fuentes": [],
+      "fragmentos_enviados": [
+        "POL-01#004",
+        "POL-01#006",
+        "POL-01#005",
+        "GUI-06#001",
+        "PRO-02#003"
+      ],
+      "respuesta": "No tengo información sobre códigos específicos para cargar licencias por examen en los documentos disponibles. La consulta pasa a una persona de RRHH.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2171,
+      "tokens_salida": 505,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00397625,
+      "latencia_ms": 7000,
+      "busqueda_ms": 9,
+      "intentos": 1,
+      "correcto": false
+    },
+    {
+      "id": "P05",
+      "tipo": "normal",
+      "usuario": "ANA-001",
+      "rol": "analista_rrhh",
+      "pregunta": "¿Cuál es el tope legal de horas extras por mes y por año?",
+      "documentos_esperados": [
+        "CCT-05"
+      ],
+      "ok": true,
+      "estado": "respondida",
+      "requiere_humano": false,
+      "motivo": null,
+      "fuentes": [
+        "CCT-05#003"
+      ],
+      "fragmentos_enviados": [
+        "CCT-05#003",
+        "GUI-06#003",
+        "ESC-04#003",
+        "POL-01#006",
+        "CRI-03#003"
+      ],
+      "respuesta": "El tope es de 30 horas extras por mes y 200 horas extras por año calendario (Decreto 484/2000); por encima de ese tope hace falta una autorización especial.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2156,
+      "tokens_salida": 566,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00411,
+      "latencia_ms": 6245,
+      "busqueda_ms": 15,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P06",
+      "tipo": "normal",
+      "usuario": "EMP-1083",
+      "rol": "empleado",
+      "pregunta": "Tengo 7 años de antigüedad, ¿cuántos días de vacaciones me tocan?",
+      "documentos_esperados": [
+        "POL-01",
+        "CCT-05"
+      ],
+      "ok": true,
+      "estado": "respondida",
+      "requiere_humano": false,
+      "motivo": null,
+      "fuentes": [
+        "POL-01#003"
+      ],
+      "fragmentos_enviados": [
+        "POL-01#003",
+        "CCT-05#007",
+        "GUI-06#003",
+        "POL-01#007",
+        "CCT-05#006"
+      ],
+      "respuesta": "Con más de 5 y hasta 10 años de antigüedad corresponden 21 días corridos de vacaciones anuales.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2260,
+      "tokens_salida": 502,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00408,
+      "latencia_ms": 5621,
+      "busqueda_ms": 9,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P07",
+      "tipo": "sin_respuesta",
+      "usuario": "SUP-002",
+      "rol": "supervisor",
+      "pregunta": "¿El comedor de planta abre los días feriados?",
+      "documentos_esperados": [],
+      "ok": true,
+      "estado": "derivada_rrhh",
+      "requiere_humano": true,
+      "motivo": "sin_evidencia_en_documentos",
+      "fuentes": [],
+      "fragmentos_enviados": [
+        "CCT-05#004",
+        "PRO-02#001",
+        "POL-01#003",
+        "GUI-06#003",
+        "CCT-05#003"
+      ],
+      "respuesta": "No tengo información sobre el comedor de planta en los documentos disponibles. Paso tu consulta a una persona de RRHH para que te responda.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2170,
+      "tokens_salida": 433,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.003795,
+      "latencia_ms": 5397,
+      "busqueda_ms": 8,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P08",
+      "tipo": "sin_respuesta",
+      "usuario": "EMP-1091",
+      "rol": "empleado",
+      "pregunta": "¿La empresa me reintegra el gasto de guardería de mi hijo?",
+      "documentos_esperados": [],
+      "ok": true,
+      "estado": "derivada_rrhh",
+      "requiere_humano": true,
+      "motivo": "sin_evidencia_en_documentos",
+      "fuentes": [],
+      "fragmentos_enviados": [
+        "CCT-05#006",
+        "POL-01#001",
+        "POL-01#002",
+        "POL-01#004",
+        "GUI-06#001"
+      ],
+      "respuesta": "No tengo información sobre reintegro de gastos de guardería en los documentos disponibles. Paso tu consulta a una persona de RRHH para que te responda.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2076,
+      "tokens_salida": 437,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.0036875,
+      "latencia_ms": 6511,
+      "busqueda_ms": 9,
+      "intentos": 1,
+      "correcto": true
+    },
+    {
+      "id": "P09",
+      "tipo": "restringida",
+      "usuario": "SUP-005",
+      "rol": "supervisor",
+      "pregunta": "¿Hasta qué monto de adelanto de sueldo puede aprobar el analista sin pasar por el jefe?",
+      "documentos_esperados": [
+        "CRI-03"
+      ],
+      "ok": true,
+      "estado": "derivada_rrhh",
+      "requiere_humano": true,
+      "motivo": "sin_evidencia_en_documentos",
+      "fuentes": [],
+      "fragmentos_enviados": [
+        "GUI-06#005",
+        "GUI-06#006",
+        "GUI-06#004",
+        "PRO-02#003",
+        "PRO-02#002"
+      ],
+      "respuesta": "No tengo esa información en los documentos que dispongo. Paso tu consulta a una persona de RRHH.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2081,
+      "tokens_salida": 502,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.00385625,
+      "latencia_ms": 6946,
+      "busqueda_ms": 11,
+      "intentos": 1,
+      "correcto": true,
+      "completo": {
+        "ok": true,
+        "id_consulta": "Q-58324c2a",
+        "usuario_id": "SUP-005",
+        "rol": "supervisor",
+        "salida": {
+          "categoria": "consulta",
+          "tipo": null,
+          "legajo": null,
+          "fecha_desde": null,
+          "fecha_hasta": null,
+          "cantidad": null,
+          "unidad": null,
+          "tiene_adjunto": false,
+          "campos_faltantes": [],
+          "respuesta_supervisor": "No tengo esa información en los documentos que dispongo. Paso tu consulta a una persona de RRHH.",
+          "confianza": 0.9,
+          "citas": []
+        },
+        "estado": "derivada_rrhh",
+        "aprobador_requerido": "analista_rrhh",
+        "requiere_humano": true,
+        "motivo_humano": "sin_evidencia_en_documentos",
+        "fuentes": [],
+        "fragmentos_enviados": [
+          "GUI-06#005",
+          "GUI-06#006",
+          "GUI-06#004",
+          "PRO-02#003",
+          "PRO-02#002"
+        ],
+        "metricas": {
+          "proveedor": "xai",
+          "modelo": "grok-4.3",
+          "tokens_entrada": 2081,
+          "tokens_salida": 502,
+          "costo_usd": 0.00385625,
+          "latencia_ms": 6946,
+          "intentos": 1,
+          "fuente_tokens": "usage",
+          "latencia_busqueda_ms": 11
+        }
+      }
+    },
+    {
+      "id": "P10",
+      "tipo": "restringida",
+      "usuario": "EMP-1091",
+      "rol": "empleado",
+      "pregunta": "¿Cuánto se paga la hora de un oficial múltiple según la escala salarial 2026?",
+      "documentos_esperados": [
+        "ESC-04"
+      ],
+      "ok": true,
+      "estado": "derivada_rrhh",
+      "requiere_humano": true,
+      "motivo": "sin_evidencia_en_documentos",
+      "fuentes": [],
+      "fragmentos_enviados": [
+        "GUI-06#003",
+        "CCT-05#009",
+        "GUI-06#005",
+        "CCT-05#003",
+        "CCT-05#008"
+      ],
+      "respuesta": "No tengo esa información en los documentos disponibles. La consulta pasa a una persona de RRHH.",
+      "restringido_en_prompt": [],
+      "tokens_entrada": 2082,
+      "tokens_salida": 446,
+      "fuente_tokens": "usage",
+      "costo_usd": 0.0037175,
+      "latencia_ms": 5443,
+      "busqueda_ms": 9,
+      "intentos": 1,
+      "correcto": true
+    }
+  ]
+}

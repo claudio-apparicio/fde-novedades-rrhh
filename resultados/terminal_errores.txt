@@ -1,20 +1,20 @@
-$ python scripts/demo_errores.py      # 2026-11-02 19:17
+$ python scripts/demo_errores.py      # 2026-11-16 20:51
 
 ── 1. Salida inválida dos veces (proveedor simulado) ─────────────────────
-19:17:00 INFO    [Q-061150ec] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:17:00 INFO    [Q-061150ec] llamada 1 · simulado/simulado · 860 + 86 tokens · 0 ms
-19:17:00 WARNING [Q-061150ec] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
-19:17:00 WARNING [Q-061150ec] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
-19:17:00 WARNING [Q-061150ec] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
-19:17:00 INFO    [Q-061150ec] reintento 1/1: se reenvían los errores al modelo
-19:17:00 INFO    [Q-061150ec] llamada 2 · simulado/simulado · 1064 + 86 tokens · 0 ms
-19:17:00 WARNING [Q-061150ec] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justific... (valor: 'hs_extras')
-19:17:00 WARNING [Q-061150ec] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
-19:17:00 WARNING [Q-061150ec] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
-19:17:00 ERROR   [Q-061150ec] la salida sigue inválida después del reintento: se devuelve error estructurado
+20:51:44 INFO    [Q-94aa60c5] consulta de SUP-003 (supervisor, montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+20:51:44 INFO    [Q-94aa60c5] llamada 1 · simulado/simulado · 1217 + 86 tokens · 0 ms
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justificada', 'ausencia_injustificada', 'licencia_enfermedad', 'licencia_particular', 'vacaciones', 'franco_compensatorio' or 'adelanto' (valor: 'hs_extras')
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
+20:51:44 INFO    [Q-94aa60c5] reintento 1/1: se reenvían los errores al modelo
+20:51:44 INFO    [Q-94aa60c5] llamada 2 · simulado/simulado · 1421 + 86 tokens · 0 ms
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'tipo': valor no permitido; opciones: 'horas_extras_50', 'horas_extras_100', 'ausencia_justificada', 'ausencia_injustificada', 'licencia_enfermedad', 'licencia_particular', 'vacaciones', 'franco_compensatorio' or 'adelanto' (valor: 'hs_extras')
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'legajo': no cumple el patrón ^\d{4}$ (valor: 'Juan')
+20:51:44 WARNING [Q-94aa60c5] validación falló en 'confianza': debe ser ≤ 1.0 (valor: '1.5')
+20:51:44 ERROR   [Q-94aa60c5] la salida sigue inválida después del reintento: se devuelve error estructurado
 {
   "ok": false,
-  "id_consulta": "Q-061150ec",
+  "id_consulta": "Q-94aa60c5",
   "tipo_error": "validacion",
   "mensaje": "La respuesta del modelo no cumple el contrato Salida después de 1 reintento. La novedad pasa a revisión manual.",
   "campos_fallidos": [
@@ -34,48 +34,58 @@ $ python scripts/demo_errores.py      # 2026-11-02 19:17
       "valor": "1.5"
     }
   ],
+  "respuesta_cruda": "{\"categoria\": \"novedad\", \"tipo\": \"hs_extras\", \"legajo\": \"Juan\", \"fecha_desde\": \"2026-09-12\", \"fecha_hasta\": null, \"cantidad\": 4, \"unidad\": \"HS\", \"tiene_adjunto\": false, \"campos_faltantes\": [], \"respuesta_supervisor\": \"[SIMULADO] Recibí tu mensaje. Para cargarlo necesito el legajo, el tipo de novedad, la fecha y la cantidad.\", \"confianza\": 1.5}",
+  "requiere_humano": true,
   "metricas": {
     "proveedor": "simulado",
     "modelo": "simulado",
-    "tokens_entrada": 1924,
+    "tokens_entrada": 2638,
     "tokens_salida": 172,
     "costo_usd": 0.0,
     "latencia_ms": 0,
-    "intentos": 2
+    "intentos": 2,
+    "fuente_tokens": "estimado",
+    "latencia_busqueda_ms": 0
   }
 }
 
 ── 2. Error real de API: clave inválida (xai) ────────────────────────────
-19:17:01 INFO    [Q-9fa50070] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:17:01 ERROR   [Q-9fa50070] error de API (autenticacion): Clave de API inválida: Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.
+20:51:45 INFO    [Q-08c4105a] consulta de SUP-003 (supervisor, montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+20:51:45 ERROR   [Q-08c4105a] error de API (autenticacion): Clave de API inválida: Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.
 {
   "ok": false,
-  "id_consulta": "Q-9fa50070",
+  "id_consulta": "Q-08c4105a",
   "tipo_error": "autenticacion",
   "mensaje": "Clave de API inválida: Error code: 400 - Incorrect API key provided. You can obtain an API key from https://console.x.ai.",
   "campos_fallidos": [],
+  "respuesta_cruda": null,
+  "requiere_humano": true,
   "metricas": {
     "proveedor": "xai",
     "modelo": "grok-4.3",
     "tokens_entrada": 0,
     "tokens_salida": 0,
     "costo_usd": 0.0,
-    "latencia_ms": 306,
-    "intentos": 1
+    "latencia_ms": 326,
+    "intentos": 1,
+    "fuente_tokens": "usage",
+    "latencia_busqueda_ms": 0
   }
 }
 
 ── 3. Sin conexión dos veces (proveedor simulado) ────────────────────────
-19:17:01 INFO    [Q-413a19d8] consulta de SUP-003 (montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
-19:17:01 ERROR   [Q-413a19d8] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
-19:17:01 INFO    [Q-413a19d8] reintento de API en 2 s
-19:17:03 ERROR   [Q-413a19d8] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
+20:51:45 INFO    [Q-2538e02c] consulta de SUP-003 (supervisor, montaje, whatsapp): Juan hizo 4 hs extras el sábado, cargalas porfa
+20:51:45 ERROR   [Q-2538e02c] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
+20:51:45 INFO    [Q-2538e02c] reintento de API en 2 s
+20:51:47 ERROR   [Q-2538e02c] error de API (sin_conexion): [SIMULADO] error de API: sin_conexion
 {
   "ok": false,
-  "id_consulta": "Q-413a19d8",
+  "id_consulta": "Q-2538e02c",
   "tipo_error": "sin_conexion",
   "mensaje": "[SIMULADO] error de API: sin_conexion",
   "campos_fallidos": [],
+  "respuesta_cruda": null,
+  "requiere_humano": true,
   "metricas": {
     "proveedor": "simulado",
     "modelo": "simulado",
@@ -83,6 +93,8 @@ $ python scripts/demo_errores.py      # 2026-11-02 19:17
     "tokens_salida": 0,
     "costo_usd": 0.0,
     "latencia_ms": 0,
-    "intentos": 2
+    "intentos": 2,
+    "fuente_tokens": "estimado",
+    "latencia_busqueda_ms": 0
   }
 }

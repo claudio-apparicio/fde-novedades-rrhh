@@ -1,0 +1,57 @@
+$ python -m src.rag.ingesta      # índice ChromaDB en indice/ · embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+── 'seccion': máx. 900 car., solape 0, por párrafos, nunca cruza secciones
+Doc.   Archivo                                   Secc Frag  Roles
+POL-01 POL-01_politica_licencias_vacaciones.md      8    8  sup,ana,jefe,emp
+PRO-02 PRO-02_procedimiento_novedades.md            8    8  sup,ana,jefe
+CRI-03 CRI-03_criterio_aprobacion_rrhh.md           6    6  ana,jefe
+         └ 5. Excepciones autorizadas por gerencia → jefe
+ESC-04 ESC-04_escala_salarial_2026.md               5    5  ana,jefe
+         └ 4. Adicionales fuera de convenio → jefe
+CCT-05 CCT-05_resumen_convenio_lct.txt              9    9  sup,ana,jefe,emp
+GUI-06 GUI-06_guia_recibo_empleado.md               6    6  sup,ana,jefe,emp
+PRO-07 PRO-07_protocolo_licencias_sensibles.md      5    5  ana,jefe
+Total: 7 docs · 47 fragmentos · 301 car. de media · 1781 ms → colección 'documentos_seccion'
+
+── 'fijo300': máx. 300 car., solape 60, ventana fija, nunca cruza secciones
+Doc.   Archivo                                   Secc Frag  Roles
+POL-01 POL-01_politica_licencias_vacaciones.md      8   14  sup,ana,jefe,emp
+PRO-02 PRO-02_procedimiento_novedades.md            8   13  sup,ana,jefe
+CRI-03 CRI-03_criterio_aprobacion_rrhh.md           6   10  ana,jefe
+         └ 5. Excepciones autorizadas por gerencia → jefe
+ESC-04 ESC-04_escala_salarial_2026.md               5    5  ana,jefe
+         └ 4. Adicionales fuera de convenio → jefe
+CCT-05 CCT-05_resumen_convenio_lct.txt              9   14  sup,ana,jefe,emp
+GUI-06 GUI-06_guia_recibo_empleado.md               6    9  sup,ana,jefe,emp
+PRO-07 PRO-07_protocolo_licencias_sensibles.md      5    6  ana,jefe
+Total: 7 docs · 71 fragmentos · 220 car. de media · 2028 ms → colección 'documentos_fijo300'
+
+Ejemplo de fragmento (CRI-03#006, configuración 'seccion'):
+{
+  "id": "CRI-03#006",
+  "texto": "Para 2026 la gerencia autorizó, por única vez en el año, un adelanto extraordinario de hasta $300.000 para empleados con más de 10 años de antigüedad, por razones de salud familiar o vivienda. Lo aprueba solo el jefe de RRHH y se registra con el código de autorización EXC-2026-03. Esta excepción no se comunica a supervisores ni a empleados.",
+  "metadatos": {
+    "titulo_documento": "Criterio de aprobación de novedades (RRHH)",
+    "rol_jefe_rrhh": true,
+    "version": "2026-10",
+    "rol_supervisor": false,
+    "caracteres": 342,
+    "rol_analista_rrhh": false,
+    "archivo": "CRI-03_criterio_aprobacion_rrhh.md",
+    "orden": 6,
+    "config": "seccion",
+    "roles": "jefe_rrhh",
+    "documento": "CRI-03",
+    "rol_empleado": false,
+    "fragmento_id": "CRI-03#006",
+    "seccion": "5. Excepciones autorizadas por gerencia"
+  }
+}
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 5 files:  20%|██        | 1/5 [00:00<00:01,  3.56it/s]
+Fetching 5 files:  80%|████████  | 4/5 [01:39<00:26, 26.85s/it]
+Fetching 5 files: 100%|██████████| 5/5 [02:47<00:00, 38.21s/it]
+Fetching 5 files: 100%|██████████| 5/5 [02:47<00:00, 33.41s/it]

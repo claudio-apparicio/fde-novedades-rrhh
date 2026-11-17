@@ -1,0 +1,53 @@
+$ python scripts/medir_rag.py      # 2026-11-16 20:50
+Embeddings: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+── Top-k: ¿el documento correcto está entre los primeros k? (8 preguntas con documento: 6 normales + 2 restringidas hechas por un usuario autorizado)
+Fragmentado   Frag.  Búsqueda     hit@1   hit@3   hit@5    MRR     ms
+seccion          47  vectorial     7/8    7/8    7/8  0.875   12.7
+seccion          47  bm25          6/8    8/8    8/8  0.854    0.3
+seccion          47  hibrida       7/8    7/8    8/8  0.900    8.6
+fijo300          71  vectorial     6/8    7/8    7/8  0.812   10.6
+fijo300          71  bm25          6/8    8/8    8/8  0.854    0.3
+fijo300          71  hibrida       7/8    7/8    7/8  0.893    8.3
+
+Ganadora (híbrida, criterio: hit@5, luego hit@1, luego MRR): 'seccion' con hit@5 = 8/8, hit@1 = 7/8, MRR = 0.9
+
+Posición del primer fragmento del documento correcto (híbrida, configuración ganadora):
+  P01 SUP-003   pos=1   ¿Cuántos días de licencia le corresponden a un operario que se ['POL-01#006', 'POL-01#004', 'POL-01#005']
+  P02 SUP-001   pos=1   ¿Hasta cuándo puedo mandar las novedades para que entren en la ['PRO-02#001', 'PRO-02#002', 'PRO-02#005']
+  P03 EMP-1091  pos=1   ¿Qué es el concepto 1035 que aparece en mi recibo de sueldo?   ['GUI-06#002', 'GUI-06#004', 'GUI-06#003']
+  P04 SUP-004   pos=5   ¿Con qué código cargo una licencia por examen de un empleado?  ['POL-01#004', 'POL-01#006', 'POL-01#005']
+  P05 ANA-001   pos=1   ¿Cuál es el tope legal de horas extras por mes y por año?      ['CCT-05#003', 'GUI-06#003', 'ESC-04#003']
+  P06 EMP-1083  pos=1   Tengo 7 años de antigüedad, ¿cuántos días de vacaciones me toc ['POL-01#003', 'CCT-05#007', 'GUI-06#003']
+  P09 ANA-001   pos=1   ¿Hasta qué monto de adelanto de sueldo puede aprobar el analis ['CRI-03#004', 'CRI-03#002', 'CRI-03#003']
+  P10 ANA-001   pos=1   ¿Cuánto se paga la hora de un oficial múltiple según la escala ['ESC-04#003', 'ESC-04#002', 'CCT-05#009']
+
+── Permisos: preguntas restringidas hechas por un usuario SIN permiso (top-50, 3 modos)
+  seccion   P09 SUP-005   (supervisor)  25 fragmentos revisados · de CRI-03: 0 OK
+  seccion   P10 EMP-1091  (empleado  )  21 fragmentos revisados · de ESC-04: 0 OK
+  fijo300   P09 SUP-005   (supervisor)  32 fragmentos revisados · de CRI-03: 0 OK
+  fijo300   P10 EMP-1091  (empleado  )  27 fragmentos revisados · de ESC-04: 0 OK
+
+── Contraste vectorial vs híbrida (consultas exactas, k = 3; acierto = fragmento del documento correcto que contiene el término)
+  Fragmentado 'seccion':
+    C1 concepto 2040    EMP-1091  vectorial ✔ ['GUI-06#004', 'CCT-05#001', 'POL-01#003']  híbrida ✔ ['GUI-06#004', 'GUI-06#001', 'GUI-06#003']
+    C2 formulario F-12  ANA-001   vectorial ✔ ['PRO-02#003', 'CRI-03#001', 'CRI-03#004']  híbrida ✔ ['CRI-03#004', 'PRO-02#006', 'PRO-02#003']
+    C3 HE100            SUP-003   vectorial ✔ ['PRO-02#004', 'PRO-02#006', 'PRO-02#003']  híbrida ✔ ['PRO-02#006', 'PRO-02#004', 'PRO-02#003']
+    C4 planilla F-07    SUP-001   vectorial ✔ ['PRO-02#003', 'PRO-02#006', 'PRO-02#001']  híbrida ✔ ['PRO-02#006', 'PRO-02#003', 'PRO-02#001']
+    C5 Ley 19.032       EMP-1083  vectorial ✘ ['CCT-05#001', 'POL-01#004', 'POL-01#008']  híbrida ✔ ['CCT-05#001', 'GUI-06#004', 'POL-01#005']  ← híbrida acierta y vectorial falla
+    C6 art. 207         ANA-001   vectorial ✘ ['CCT-05#001', 'PRO-02#007', 'GUI-06#003']  híbrida ✔ ['CCT-05#004', 'CCT-05#006', 'CCT-05#005']  ← híbrida acierta y vectorial falla
+    C7 EXC-2026-03      JEF-001   vectorial ✘ ['CRI-03#001', 'PRO-02#003', 'PRO-02#004']  híbrida ✔ ['CRI-03#001', 'PRO-02#008', 'CRI-03#006']  ← híbrida acierta y vectorial falla
+    C8 código LPA       SUP-002   vectorial ✘ ['POL-01#002', 'CCT-05#001', 'CCT-05#009']  híbrida ✔ ['PRO-02#004', 'GUI-06#001', 'GUI-06#002']  ← híbrida acierta y vectorial falla
+  Fragmentado 'fijo300':
+    C1 concepto 2040    EMP-1091  vectorial ✔ ['CCT-05#002', 'CCT-05#012', 'GUI-06#006']  híbrida ✔ ['GUI-06#006', 'GUI-06#004', 'GUI-06#005']
+    C2 formulario F-12  ANA-001   vectorial ✔ ['PRO-02#011', 'CRI-03#006', 'PRO-02#004']  híbrida ✔ ['CRI-03#006', 'PRO-02#011', 'PRO-02#010']
+    C3 HE100            SUP-003   vectorial ✔ ['PRO-02#006', 'PRO-02#010', 'GUI-06#004']  híbrida ✔ ['PRO-02#010', 'PRO-02#006', 'GUI-06#004']
+    C4 planilla F-07    SUP-001   vectorial ✔ ['PRO-02#011', 'PRO-02#010', 'PRO-02#004']  híbrida ✔ ['PRO-02#011', 'PRO-02#010', 'PRO-02#004']
+    C5 Ley 19.032       EMP-1083  vectorial ✘ ['CCT-05#002', 'CCT-05#012', 'CCT-05#001']  híbrida ✔ ['CCT-05#002', 'CCT-05#001', 'GUI-06#006']  ← híbrida acierta y vectorial falla
+    C6 art. 207         ANA-001   vectorial ✘ ['CCT-05#002', 'GUI-06#004', 'CCT-05#001']  híbrida ✔ ['CCT-05#012', 'CCT-05#010', 'CCT-05#007']  ← híbrida acierta y vectorial falla
+    C7 EXC-2026-03      JEF-001   vectorial ✘ ['CRI-03#001', 'CCT-05#002', 'CRI-03#003']  híbrida ✔ ['CRI-03#010', 'CCT-05#002', 'CRI-03#001']  ← híbrida acierta y vectorial falla
+    C8 código LPA       SUP-002   vectorial ✔ ['POL-01#002', 'PRO-02#007', 'CCT-05#002']  híbrida ✔ ['PRO-02#006', 'PRO-02#007', 'GUI-06#001']
+
+En 'seccion': la híbrida acierta y la vectorial falla en 4 de 8 consultas exactas: ['C5', 'C6', 'C7', 'C8']
+
+Archivos: resultados/pe3/medicion_rag.csv, medicion_rag.json, terminal_medicion_rag.txt
